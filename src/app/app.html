@@ -1,0 +1,26 @@
+<ion-menu [content]="content">
+
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-list>
+      <button ion-item (click)="abrirPagina()">
+        1.- Lista de Pasajeros por Embarcar
+      </button>
+      <button ion-item (click)="abrirPagina(CierreEmbarque)">
+        2.- Cierre de Embarque
+      </button>
+      <button ion-item (click)="abrirPagina(Ayuda)">
+        3.- Ayuda
+      </button>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+
+
+<ion-nav [root]="rootPage" #content></ion-nav>

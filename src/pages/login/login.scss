@@ -1,0 +1,27 @@
+page-login {
+  .background{
+    background-image: url('../../assets/imgs/background.jpg');
+    background-size: cover !important;
+    background-repeat: no-repeat;
+  }
+  .scroll-content{
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  ion-card.card{
+    position: absolute;
+    margin-top: 30%;
+    box-shadow: none;
+    background: rgba(255,255,255,0.35);
+    border-radius: 8px;
+  }
+  .item{
+    margin-bottom: 10px;
+    background: rgba(255,255,255,0.85);
+  }
+  .button{
+    background-color: rgba(1,51,128,0.78);
+  }
+}
