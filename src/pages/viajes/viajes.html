@@ -1,19 +1,48 @@
 <ion-header>
-
   <ion-navbar>
-
     <ion-title>Selección de Viaje</ion-title>
-    <ion-buttons>
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
+<form (ngSubmit)="infoViaje(Viaje.fecha, Viaje.origen, Viaje.destino)">
+  <ion-list>
+    <ion-item>
+     <ion-label>FECHA</ion-label>
+     <ion-select [(ngModel)]="Viaje.fecha" name="fecha" submitText="Aceptar" cancelText="Cancelar">
+       <ion-option value="{{fecha.fecha}}"*ngFor="let fecha of fechas">{{ fecha.fecha }}</ion-option>
+     </ion-select>
+   </ion-item>
+   <ion-item>
+     <ion-label>ORIGEN</ion-label>
+     <ion-select [(ngModel)]="Viaje.origen" name="origen" submitText="Aceptar" cancelText="Cancelar">
+       <ion-option *ngFor="let origen of origenes">{{ origen.origen }}</ion-option>
+     </ion-select>
+   </ion-item>
+   <ion-item>
+     <ion-label>DESTINO</ion-label>
+     <ion-select [(ngModel)]="Viaje.destino" name="destino" submitText="Aceptar" cancelText="Cancelar">
+      <ion-option *ngFor="let destino of destinos">{{ destino.destino }}</ion-option>
+     </ion-select>
+   </ion-item>
+
+   <ion-card>
+     <ion-card-content>
+       <ion-card-title> Lista de Viajes Encontrados</ion-card-title>
+       <p>Seleccione uno de los viajes.</p>
+       <ion-item>
+         <button style="height: 45px;transition: none;font-size: 1.5rem;"
+                 ion-button full color="Broom"
+                 type="submit">ACEPTAR</button>
+       </ion-item>
+     </ion-card-content>
+   </ion-card>
+  </ion-list>
+</form>
+
 
 </ion-content>

@@ -12,9 +12,12 @@ import { ViajesPage } from "../pages/viajes/viajes";
 import { ResumenPage } from '../pages/resumen/resumen';
 import { VerificacionPage } from "../pages/verificacion/verificacion";
 import { ResultadoPage } from "../pages/resultado/resultado";
+import { ScanQrPage } from "../pages/scan-qr/scan-qr";
 //Modales
 import { CierreEmbarquePage } from "../pages/cierre-embarque/cierre-embarque";
 import { AyudaPage } from "../pages/ayuda/ayuda";
+//plugin
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 
 @NgModule({
@@ -27,7 +30,8 @@ import { AyudaPage } from "../pages/ayuda/ayuda";
     VerificacionPage,
     ResultadoPage,
     CierreEmbarquePage,
-    AyudaPage
+    AyudaPage,
+    ScanQrPage
 
   ],
   imports: [
@@ -44,11 +48,13 @@ import { AyudaPage } from "../pages/ayuda/ayuda";
     VerificacionPage,
     ResultadoPage,
     CierreEmbarquePage,
-    AyudaPage
+    AyudaPage,
+    ScanQrPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })
