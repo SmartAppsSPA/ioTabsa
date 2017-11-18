@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 //Importamos la Pagina a la que vamos a redireccionar
 import { ViajesPage } from '../viajes/viajes';
 

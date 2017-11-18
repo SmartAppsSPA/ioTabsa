@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angul
 
 //Importamos Página Inicial
 import { SeleccionPage } from "../seleccion/seleccion";
+//Consumimos servicio API Rest c/datos del servidor SQL Server
+import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 
 @IonicPage()
 @Component({
@@ -11,8 +13,12 @@ import { SeleccionPage } from "../seleccion/seleccion";
 })
 export class LoginPage {
 
+  users: any;
+  usersToUse: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private menu: MenuController) {
+              private menu: MenuController, public restProvider: RestServiceProvider) {
+      this.getUsers();
   }
 
   LoginApp():void{
@@ -23,6 +29,16 @@ export class LoginPage {
   }
   ionViewWillLeave(){
     this.menu.enable(true);
+  }
+
+  getUsers(){
+    this.restProvider.getUsers().
+      then(data => {
+        this.users = data;
+        console.log(this.users);
+        this.usersToUse = this.users.recordset;
+        console.log(this.usersToUse)
+      });
   }
 
 }
