@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { HttpClient } from '@angular/common/http';
 
 //Importamos Página Inicial
 import { SeleccionPage } from "../seleccion/seleccion";
-//Consumimos servicio API Rest c/datos del servidor SQL Server
+//Importamos el servicio Rest
 import { RestServiceProvider } from "../../providers/rest-service/rest-service";
+
 
 @IonicPage()
 @Component({
@@ -13,17 +15,32 @@ import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 })
 export class LoginPage {
 
-  users: any;
-  usersToUse: any;
+  credenciales = {username:'', password:''};
+  users:any;
+  credencialesSQL:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private menu: MenuController, public restProvider: RestServiceProvider) {
-      this.getUsers();
+              private menu: MenuController, public restService: RestServiceProvider,
+              public http: HttpClient) {
+                this.getUsers();
   }
 
-  LoginApp():void{
-    this.navCtrl.setRoot(SeleccionPage);
+  loginApp(){
+    // return this.http.post(this.restService.apiURL + '/Users', JSON.stringify({}))
+    this.restService.loginUsers(this.credenciales)
+    .then(data => {
+      this.credencialesSQL = JSON.stringify(data.recordset[0]);
+      if(this.credencialesSQL == JSON.stringify(this.credenciales)){
+        this.navCtrl.setRoot(SeleccionPage, {username: data.recordset[0].username});
+      }
+      else{
+        console.log('Login fallido');
+      }
+
+
+    });
   }
+
   ionViewDidEnter(){
     this.menu.enable(false);
   }
@@ -32,12 +49,12 @@ export class LoginPage {
   }
 
   getUsers(){
-    this.restProvider.getUsers().
-      then(data => {
+    this.restService.getUsers()
+      .then(data => {
         this.users = data;
-        console.log(this.users);
-        this.usersToUse = this.users.recordset;
-        console.log(this.usersToUse)
+        console.log(this.users.recordset);
+        // this.usersToUse = this.users.recordset;
+        // console.log(this.usersToUse)
       });
   }
 

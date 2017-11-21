@@ -9,7 +9,10 @@ import { ViajesPage } from '../viajes/viajes';
 })
 export class SeleccionPage {
 
+  usuario:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.usuario = this.navParams.data;
   }
 
   abrirViajes():void{
