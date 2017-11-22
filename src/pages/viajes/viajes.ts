@@ -2,53 +2,38 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 //Pagina ResumenPage
 import { ResumenPage } from "../resumen/resumen";
+//Importamos Servicios APIRest
+import { RestServiceProvider } from "../../providers/rest-service/rest-service";
+
 
 @Component({
   selector: 'page-viajes',
   templateUrl: 'viajes.html',
 })
 export class ViajesPage {
-  Viaje = {};
-  fechas:any[] = [
-
-    {
-      fecha: "15-11-2017"
-    },
-    {
-      fecha: "16-11-2017"
-    },
-    {
-      fecha: "17-11-2017"
-    },
-    {
-      fecha: "18-11-2017"
-    }
-  ];
-  origenes:any[] = [
-    {
-      origen: "Punta Arenas"
-    },
-    {
-      origen: "Natales"
-    }
-  ];
-  destinos:any[] = [
-    {
-      destino: "Pto. Williams"
-    },
-    {
-      destino: "Porvenir"
-    },
-    {
-      destino: "Isla Magdalena"
-    }
-  ];
+  Viaje = {}; // Datos obtenidos del formulario de la página Viaje.html
+  origenes:any[] = []; //objetos con ID y Nombre de Sito guardados en un Array
+  destinos:any[] = []; //objetos con ID y Nombre de Sito guardados en un Array
+  sitioSQL:any; //Data recibida por el servidor SQL
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public restServices: RestServiceProvider) {
+                this.getSitios();
   }
 
   infoViaje(fecha:any, origen:any, destino:any){
     this.navCtrl.push(ResumenPage, {fecha, origen, destino});
+  }
+  getSitios(){
+    this.restServices.getSitios().then(data =>{
+      this.sitioSQL = data;
+      for (let i = 0; i < this.sitioSQL.recordset.length; i++) {
+          this.destinos[i] = this.sitioSQL.recordset[i];
+          this.origenes[i] = this.sitioSQL.recordset[i];
+          // console.log(this.destinos[i]);
+      }
+
+    });
   }
 }

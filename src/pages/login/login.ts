@@ -29,9 +29,9 @@ export class LoginPage {
     // return this.http.post(this.restService.apiURL + '/Users', JSON.stringify({}))
     this.restService.loginUsers(this.credenciales)
     .then(data => {
-      this.credencialesSQL = JSON.stringify(data.recordset[0]);
-      if(this.credencialesSQL == JSON.stringify(this.credenciales)){
-        this.navCtrl.setRoot(SeleccionPage, {username: data.recordset[0].username});
+      this.credencialesSQL = data;
+      if(JSON.stringify(this.credencialesSQL.recordset[0]) == JSON.stringify(this.credenciales)){
+        this.navCtrl.setRoot(SeleccionPage, {username: JSON.stringify(this.credencialesSQL.recordset[0].username)});
       }
       else{
         console.log('Login fallido');

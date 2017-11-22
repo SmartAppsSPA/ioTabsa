@@ -29,4 +29,13 @@ export class RestServiceProvider {
       });
     });
   }
+  getSitios(){
+    return new Promise (resolve => {
+      this.http.get(this.apiURL + '/Sitios').subscribe(data =>{
+        resolve(data);
+      }, err =>{
+        console.log(err);
+      });
+    });
+  }
 }

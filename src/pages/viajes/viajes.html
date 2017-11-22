@@ -13,20 +13,18 @@
   <ion-list>
     <ion-item>
      <ion-label>FECHA</ion-label>
-     <ion-select [(ngModel)]="Viaje.fecha" name="fecha" submitText="Aceptar" cancelText="Cancelar">
-       <ion-option value="{{fecha.fecha}}"*ngFor="let fecha of fechas">{{ fecha.fecha }}</ion-option>
-     </ion-select>
+     <ion-datetime [(ngModel)]="Viaje.fecha" name="fecha" doneText="Aceptar" cancelText="Cancelar" displayFormat="YYYY-MM-DD" min="2017-10-01" max="2050-12-31"></ion-datetime>
    </ion-item>
    <ion-item>
      <ion-label>ORIGEN</ion-label>
      <ion-select [(ngModel)]="Viaje.origen" name="origen" submitText="Aceptar" cancelText="Cancelar">
-       <ion-option *ngFor="let origen of origenes">{{ origen.origen }}</ion-option>
+       <ion-option *ngFor="let origen of origenes">{{ origen.nombre_sitio }}</ion-option>
      </ion-select>
    </ion-item>
    <ion-item>
      <ion-label>DESTINO</ion-label>
-     <ion-select [(ngModel)]="Viaje.destino" name="destino" submitText="Aceptar" cancelText="Cancelar">
-      <ion-option *ngFor="let destino of destinos">{{ destino.destino }}</ion-option>
+     <ion-select  [(ngModel)]="Viaje.destino" name="destino" submitText="Aceptar" cancelText="Cancelar">
+      <ion-option *ngFor="let destino of destinos">{{ destino.nombre_sitio }}</ion-option>
      </ion-select>
    </ion-item>
 
