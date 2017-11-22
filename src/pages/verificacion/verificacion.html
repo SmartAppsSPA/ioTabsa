@@ -1,18 +1,49 @@
-<!--
-  Generated template for the VerificacionPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
-    <ion-title>Verificacion</ion-title>
+    <ion-title>Verificación Manual</ion-title>
+    <button ion-button icon-only menuToggle end>
+      <ion-icon name="menu"></ion-icon>
+    </button>
   </ion-navbar>
-
 </ion-header>
 
 
 <ion-content padding>
-
+  <br>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Verificación Manual de Pasajeros</ion-card-title>
+      <br>
+      <ion-list>
+        <ion-item>
+          <p><b>1.- Verifique la identidad del pasajero.</b></p>
+        </ion-item>
+        <ion-item>
+          <p><b>2.- Corrobore que el C.I. es de la<br>persona que lo presenta.</b></p>
+        </ion-item>
+        <ion-item>
+          <p><b>3.- Verifique los siguientes datos<br>personales.</b></p>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <p align="center">
+        <b>Datos del pasajero:</b>
+      </p>
+      <p>
+        <b>Nombre, Rut, Fechas del viaje registrado en Tarjeta de Embarque</b>
+      </p>
+      <br><br>
+    </ion-card-content>
+  </ion-card>
+  <br>
+  <ion-title style="text-align: center;">Los datos son correctos?</ion-title>
+  <button style="height: 60px;transition: none;font-size: 1.5rem;"
+          ion-button block color="danger"
+          (click)="datosIncorrectos()">NO</button>
+  <button style="height: 60px;transition: none;font-size: 1.5rem;"
+          ion-button block color="secondary"
+          (click)="datosCorrectos()">SI</button>
 </ion-content>

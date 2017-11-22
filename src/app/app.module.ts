@@ -14,6 +14,10 @@ import { ResumenPage } from '../pages/resumen/resumen';
 import { VerificacionPage } from "../pages/verificacion/verificacion";
 import { ResultadoPage } from "../pages/resultado/resultado";
 import { ScanQrPage } from "../pages/scan-qr/scan-qr";
+import { ScanCiPage } from "../pages/scan-ci/scan-ci";
+import { ScanCiManualPage } from "../pages/scan-ci-manual/scan-ci-manual";
+import { RechazoPage } from "../pages/rechazo/rechazo";
+import { AprobacionPage } from "../pages/aprobacion/aprobacion";
 //Modales
 import { CierreEmbarquePage } from "../pages/cierre-embarque/cierre-embarque";
 import { AyudaPage } from "../pages/ayuda/ayuda";
@@ -34,7 +38,11 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
     ResultadoPage,
     CierreEmbarquePage,
     AyudaPage,
-    ScanQrPage
+    ScanQrPage,
+    ScanCiPage,
+    ScanCiManualPage,
+    RechazoPage,
+    AprobacionPage
 
   ],
   imports: [
@@ -53,7 +61,11 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
     ResultadoPage,
     CierreEmbarquePage,
     AyudaPage,
-    ScanQrPage
+    ScanQrPage,
+    ScanCiPage,
+    ScanCiManualPage,
+    RechazoPage,
+    AprobacionPage
   ],
   providers: [
     StatusBar,

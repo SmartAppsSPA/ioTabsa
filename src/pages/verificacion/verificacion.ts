@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the VerificacionPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+//Importamos paginas a redireccionar
+import { AprobacionPage } from "../aprobacion/aprobacion";
+import { RechazoPage } from "../rechazo/rechazo";
 
 @IonicPage()
 @Component({
@@ -18,8 +14,11 @@ export class VerificacionPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad VerificacionPage');
+  datosIncorrectos(){
+    this.navCtrl.setRoot(RechazoPage);
+  }
+  datosCorrectos(){
+    this.navCtrl.setRoot(AprobacionPage);
   }
 
 }

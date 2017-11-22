@@ -8,6 +8,7 @@ import { CierreEmbarquePage } from "../pages/cierre-embarque/cierre-embarque";
 import { AyudaPage } from '../pages/ayuda/ayuda';
 
 
+
 @Component({
   templateUrl: 'app.html'
 })

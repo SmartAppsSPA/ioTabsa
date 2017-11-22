@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Escanear C.I. o Pasaporte</ion-title>
+    <button ion-button icon-only menuToggle end>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>Escanee el código QR de la Cedula de Identidad o del Pasaporte</ion-card-title>
+      <br><br>
+      <button style="height: 60px;transition: none;font-size: 1.5rem;"
+              ion-button block color="Broom"
+              (click)="scan()">REALIZAR SCAN C.I.</button>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <button style="height: 60px;transition: none;font-size: 1.5rem;"
+              ion-button block color="Broom"
+              (click)="verificacionManual()">Verificación Manual</button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
