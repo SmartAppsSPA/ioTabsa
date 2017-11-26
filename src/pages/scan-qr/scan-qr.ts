@@ -15,7 +15,9 @@ import { ScanCiPage } from "../scan-ci/scan-ci";
   templateUrl: 'scan-qr.html',
 })
 export class ScanQrPage {
-  dataQR:any;
+  camposTabsa:any;
+  var:string = "100&211690&9&1-9&Juan&Test&1010&2017-11-10 14:00:00&5804"
+  dataQR:string;
   public workoutProgress: string = '0' + '%';
 
 
@@ -26,13 +28,14 @@ export class ScanQrPage {
   scan(){
     this.barcodeScanner.scan().then((barcodeData) => {
       this.dataQR = barcodeData.text;
-      if(this.dataQR == 'Javier Moraga Rojas'){
-        this.navCtrl.push(ScanCiPage);
+      let splittedQR = this.dataQR.split("&");
+      let splittedvar = this.var.split("&");
+      if(JSON.stringify(splittedQR) == JSON.stringify(splittedvar)){
+        this.navCtrl.setRoot(ScanCiPage);
       }
       else{
         this.navCtrl.setRoot(RechazoPage);
       }
-      console.log(this.dataQR);
     }, (err) => {
       console.log(err);
     });

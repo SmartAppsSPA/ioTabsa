@@ -15,6 +15,8 @@ import { VerificacionPage } from "../verificacion/verificacion";
 })
 export class ScanCiPage {
   dataCI:any;
+  RutQR:any;
+  rut:string = "17237332-1"
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public restService: RestServiceProvider, private barcodeScanner: BarcodeScanner) {
@@ -23,8 +25,16 @@ export class ScanCiPage {
   scan(){
     this.barcodeScanner.scan().then((barcodeData) => {
       this.dataCI = barcodeData.text;
-      if(this.dataCI){
+      console.log(this.dataCI);
+      this.RutQR = this.dataCI.split("&",1);
+      console.log("La data entregada es: " + this.RutQR);
+      let sliceData = this.RutQR[0].split("=");
+      console.log("Segundo Slice entrega: " + sliceData);
+      if(JSON.stringify(sliceData[1]) == JSON.stringify(this.rut)){
         this.navCtrl.setRoot(AprobacionPage);
+      }
+      else{
+        this.navCtrl.push(VerificacionPage);
       }
     });
   }
