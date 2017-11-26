@@ -9,12 +9,12 @@
 
 
 <ion-content padding>
-<form (ngSubmit)="infoViaje(Viaje.fecha, Viaje.origen, Viaje.destino)">
+<form (ngSubmit)="infoViaje(Viaje.origen, Viaje.destino)">
   <ion-list>
-    <ion-item>
+    <!-- <ion-item>
      <ion-label>FECHA</ion-label>
      <ion-datetime [(ngModel)]="Viaje.fecha" name="fecha" doneText="Aceptar" cancelText="Cancelar" displayFormat="YYYY-MM-DD" min="2017-10-01" max="2050-12-31"></ion-datetime>
-   </ion-item>
+   </ion-item> -->
    <ion-item>
      <ion-label>ORIGEN</ion-label>
      <ion-select [(ngModel)]="Viaje.origen" name="origen" submitText="Aceptar" cancelText="Cancelar">

@@ -20,10 +20,15 @@ export class ViajesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public restServices: RestServiceProvider) {
                 this.getSitios();
+
   }
 
-  infoViaje(fecha:any, origen:any, destino:any){
-    this.navCtrl.push(ResumenPage, {fecha, origen, destino});
+  infoViaje(origen:any, destino:any){
+    var fechaActual = new Date().toISOString();
+    let fecha = fechaActual.split("T");
+
+    console.log(fecha[0], origen, destino);
+    // this.navCtrl.push(ResumenPage, {fecha, origen, destino});
   }
   getSitios(){
     this.restServices.getSitios().then(data =>{
