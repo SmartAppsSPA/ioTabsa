@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 export class RestServiceProvider {
 
 
-  apiURL = 'http://192.168.0.7:8081';
+  apiURL = 'http://localhost:8081';
 
   constructor(public http: HttpClient) {}
 
