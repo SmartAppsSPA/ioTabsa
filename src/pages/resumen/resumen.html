@@ -19,35 +19,35 @@
       <ion-icon name='calendar' item-start></ion-icon>
       Fecha:
       <ion-note item-end>
-      {{ Viaje.fecha }}
+        {{ tramo.cruce.horario_cruce | date: "dd/MM/yyyy" }}
       </ion-note>
     </ion-item>
     <ion-item>
       <ion-icon name='clock' item-start></ion-icon>
       Hora:
       <ion-note item-end>
-      16:00hrs
+      {{ tramo.cruce.horario_cruce | date: "h:mma" }}
       </ion-note>
     </ion-item>
     <ion-item>
       <ion-icon name='boat' item-start></ion-icon>
       Nave:
       <ion-note item-end>
-      Crux Australis
+      {{ tramo.cruce.nombre_nave }}
       </ion-note>
     </ion-item>
     <ion-item>
       <ion-icon name='locate' item-start></ion-icon>
       Origen:
       <ion-note item-end>
-      {{ Viaje.origen }}
+      {{ tramo.origen }}
       </ion-note>
     </ion-item>
     <ion-item>
       <ion-icon name='map' item-start></ion-icon>
       Destino:
       <ion-note item-end>
-      {{ Viaje.destino }}
+      {{ tramo.destino }}
       </ion-note>
     </ion-item>
     <ion-card>

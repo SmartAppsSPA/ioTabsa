@@ -11,11 +11,11 @@ import { ScanQrPage } from "../scan-qr/scan-qr";
 })
 export class ResumenPage {
 
-  Viaje:any = {};
+  tramo:any = {};
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    console.log(navParams);
-    this.Viaje = this.navParams.data;
+    this.tramo = this.navParams.data;
+    console.log(this.tramo);
   }
 
   viajeCorrecto(){

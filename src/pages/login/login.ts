@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, MenuController, ToastController, LoadingController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
 
 //Importamos Página Inicial
@@ -21,7 +21,8 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private menu: MenuController, public restService: RestServiceProvider,
-              public http: HttpClient) {
+              public http: HttpClient, private toastCtrl: ToastController,
+              public loadingCtrl: LoadingController) {
                 this.getUsers();
   }
 
@@ -31,9 +32,10 @@ export class LoginPage {
     .then(data => {
       this.credencialesSQL = data;
       if(JSON.stringify(this.credencialesSQL.recordset[0]) == JSON.stringify(this.credenciales)){
-        this.navCtrl.setRoot(SeleccionPage, {username: JSON.stringify(this.credencialesSQL.recordset[0].username)});
+        this.presentLoading();
       }
       else{
+        this.presentToast();
         console.log('Login fallido');
       }
 
@@ -56,6 +58,34 @@ export class LoginPage {
         // this.usersToUse = this.users.recordset;
         // console.log(this.usersToUse)
       });
+  }
+  presentToast() {
+  let toast = this.toastCtrl.create({
+    message: 'Usuario o Contraseña Incorrecta.',
+    duration: 3500,
+    position: 'bottom'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
+  }
+  presentLoading() {
+  let loading = this.loadingCtrl.create({
+    content: 'Iniciando sesión...'
+  });
+
+  loading.present();
+
+  setTimeout(() => {
+  this.navCtrl.setRoot(SeleccionPage, {username: JSON.stringify(this.credencialesSQL.recordset[0].username)});
+}, 1500);
+
+  setTimeout(() => {
+    loading.dismiss();
+  }, 3000);
   }
 
 }
