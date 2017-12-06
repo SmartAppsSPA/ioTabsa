@@ -9,38 +9,42 @@
 
 
 <ion-content padding>
-<form (ngSubmit)="infoViaje(Viaje.origen, Viaje.destino)">
-  <ion-list>
-    <!-- <ion-item>
-     <ion-label>FECHA</ion-label>
-     <ion-datetime [(ngModel)]="Viaje.fecha" name="fecha" doneText="Aceptar" cancelText="Cancelar" displayFormat="YYYY-MM-DD" min="2017-10-01" max="2050-12-31"></ion-datetime>
-   </ion-item> -->
-   <ion-item>
-     <ion-label>ORIGEN</ion-label>
-     <ion-select [(ngModel)]="Viaje.origen" name="origen" submitText="Aceptar" cancelText="Cancelar">
-       <ion-option *ngFor="let origen of origenes">{{ origen.nombre_sitio }}</ion-option>
-     </ion-select>
-   </ion-item>
-   <ion-item>
-     <ion-label>DESTINO</ion-label>
-     <ion-select  [(ngModel)]="Viaje.destino" name="destino" submitText="Aceptar" cancelText="Cancelar">
-      <ion-option *ngFor="let destino of destinos">{{ destino.nombre_sitio }}</ion-option>
-     </ion-select>
-   </ion-item>
 
-   <ion-card>
-     <ion-card-content>
-       <ion-card-title> Lista de Viajes Encontrados</ion-card-title>
-       <p>Seleccione uno de los viajes.</p>
-       <ion-item>
-         <button style="height: 45px;transition: none;font-size: 1.5rem;"
-                 ion-button full color="Broom"
-                 type="submit">ACEPTAR</button>
-       </ion-item>
-     </ion-card-content>
-   </ion-card>
-  </ion-list>
-</form>
+<ion-list>
+ <ion-item *ngIf="Viaje.destino == null">
+   <ion-label>ORIGEN</ion-label>
+   <!-- Ante la seleccion del item, se envia al controlador el parametro del ngModel para correr el codigo -->
+   <ion-select [(ngModel)]="Viaje.origen" name="origen"
+               submitText="Aceptar" cancelText="Cancelar"
+               (ionChange)="onSelectChange(Viaje.origen)">
+     <ion-option *ngFor="let origen of origenes">{{ origen.nombre_sitio }}</ion-option>
+   </ion-select>
+ </ion-item>
+ <ion-item *ngIf="Viaje.destino == null">
+   <ion-label>DESTINO</ion-label>
+   <ion-select  [(ngModel)]="Viaje.destino" name="destino"
+                submitText="Aceptar" cancelText="Cancelar"
+                (ionChange)="buscarCruce(Viaje.destino)">
+    <ion-option *ngFor="let destino of destinos">{{ destino.nombre_sitio }}</ion-option>
+   </ion-select>
+ </ion-item>
+<h1 *ngIf="Viaje.destino != null">Seleccione uno de los siguientes tramos</h1>
+ <ion-card *ngFor="let cruce of cruces; let i = index" (click)="seleccionTramo(cruce, Viaje.origen, Viaje.destino)">
+   <ion-card-content *ngIf="i < 2">
+     <ion-card-title>Fecha: {{cruce.horario_cruce | date :"dd/MM/yyyy 'Cruce:' h:mma ":"+0000"}}</ion-card-title>
+     <h2>{{Viaje.origen}} -> {{Viaje.destino}}</h2>
+     <h2>Presentación: {{cruce.horario_presentacion | date: 'h:mma ':'+0000'}}</h2>
+     <h3>Nave: {{cruce.nombre_nave}}</h3>
+   </ion-card-content>
+ </ion-card>
+ <ion-item *ngIf="Viaje.destino!= null">
+   <button style="height: 45px;transition: none;font-size: 1.5rem;"
+           ion-button full color="danger"
+           (click)="limpiarBusqueda()">
+    CANCELAR<ion-icon name="trash"></ion-icon>
+  </button>
+ </ion-item>
+</ion-list>
 
 
 </ion-content>

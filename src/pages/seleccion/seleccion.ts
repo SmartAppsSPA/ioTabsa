@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 //Importamos la Pagina a la que vamos a redireccionar
 import { ViajesPage } from '../viajes/viajes';
 
@@ -11,11 +11,24 @@ export class SeleccionPage {
 
   usuario:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public loadingCtrl: LoadingController) {
     this.usuario = this.navParams.data;
   }
 
   abrirViajes():void{
-    this.navCtrl.setRoot(ViajesPage);
+    let loading = this.loadingCtrl.create({
+    content: 'Cargando...'
+    });
+
+    loading.present();
+
+    setTimeout(() => {
+      this.navCtrl.setRoot(ViajesPage);
+    }, 1200);
+
+    setTimeout(() => {
+      loading.dismiss();
+    }, 3000);
   }
 }

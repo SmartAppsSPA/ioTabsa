@@ -7,6 +7,7 @@ import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 //importamos paginas a redireccionar
 import { AprobacionPage } from "../aprobacion/aprobacion";
 import { VerificacionPage } from "../verificacion/verificacion";
+import { RechazoPage } from "../rechazo/rechazo";
 
 @IonicPage()
 @Component({
@@ -34,7 +35,7 @@ export class ScanCiPage {
         this.navCtrl.setRoot(AprobacionPage);
       }
       else{
-        this.navCtrl.push(VerificacionPage);
+        this.navCtrl.push(RechazoPage);
       }
     });
   }

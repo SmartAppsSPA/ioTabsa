@@ -4,6 +4,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
+import { Md5 } from 'ts-md5/dist/md5';
 
 import { MyApp } from './app.component';
 //Pantallas de la App
@@ -23,6 +24,7 @@ import { CierreEmbarquePage } from "../pages/cierre-embarque/cierre-embarque";
 import { AyudaPage } from "../pages/ayuda/ayuda";
 //plugin
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 //Servicios de la Aplicacion
 import { RestServiceProvider } from '../providers/rest-service/rest-service';
 
@@ -71,8 +73,10 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
     StatusBar,
     SplashScreen,
     BarcodeScanner,
+    TextToSpeech,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestServiceProvider
+    RestServiceProvider,
+    Md5
   ]
 })
 export class AppModule {}

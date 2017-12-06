@@ -7,7 +7,7 @@ import 'rxjs/add/operator/map';
 export class RestServiceProvider {
 
 
-  apiURL = 'http://localhost:8081';
+  apiURL = 'http://104.131.88.98:8081';
 
   constructor(public http: HttpClient) {}
 
@@ -38,4 +38,14 @@ export class RestServiceProvider {
       });
     });
   }
+  postDate(fecha){
+    return new Promise (resolve => {
+      this.http.post(this.apiURL + '/Cruces', fecha).subscribe(data =>{
+        resolve(data);
+      }, err =>{
+        console.log(err);
+      });
+    });
+  }
+
 }
