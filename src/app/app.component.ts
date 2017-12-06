@@ -6,7 +6,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { CierreEmbarquePage } from "../pages/cierre-embarque/cierre-embarque";
 import { AyudaPage } from '../pages/ayuda/ayuda';
-import { ViajesPage } from '../pages/viajes/viajes';
 
 
 
@@ -17,7 +16,7 @@ export class MyApp {
   Ayuda = AyudaPage;
   CierreEmbarque = CierreEmbarquePage;
 
-  rootPage:any = ViajesPage;
+  rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               private menuCtrl:MenuController) {

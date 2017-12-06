@@ -1,6 +1,6 @@
 {
   "name": "Tabsa",
-  "app_id": "",
+  "app_id": "6d499708",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}

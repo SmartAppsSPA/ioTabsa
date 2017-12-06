@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { SeleccionPage } from "../seleccion/seleccion";
 //Importamos el servicio Rest
 import { RestServiceProvider } from "../../providers/rest-service/rest-service";
+import {Md5} from 'ts-md5/dist/md5';
 
 
 @IonicPage()
@@ -16,7 +17,7 @@ import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 export class LoginPage {
 
   credenciales = {username:'', password:''};
-  users:any;
+  usersSQL:any;
   credencialesSQL:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -27,36 +28,25 @@ export class LoginPage {
   }
 
   loginApp(){
-    // return this.http.post(this.restService.apiURL + '/Users', JSON.stringify({}))
-    this.restService.loginUsers(this.credenciales)
-    .then(data => {
-      this.credencialesSQL = data;
-      if(JSON.stringify(this.credencialesSQL.recordset[0]) == JSON.stringify(this.credenciales)){
-        this.presentLoading();
-      }
-      else{
-        this.presentToast();
-        console.log('Login fallido');
-      }
-
-
-    });
-  }
-
-  ionViewDidEnter(){
-    this.menu.enable(false);
-  }
-  ionViewWillLeave(){
-    this.menu.enable(true);
+    let password = (Md5.hashStr(this.credenciales.password).toString()).toUpperCase();
+    for (let i = 0; i < this.usersSQL.length; i++) {
+        if(this.credenciales.username == this.usersSQL[i].username && password == this.usersSQL[i][""]){
+          console.log("usuario encontrado");
+          this.presentLoading(i);
+          break;
+        }
+        else if(this.credenciales.username != this.usersSQL[i].username && password != this.usersSQL[i][""]){
+          this.presentToast();
+          break;
+        }
+    }
   }
 
   getUsers(){
     this.restService.getUsers()
       .then(data => {
-        this.users = data;
-        console.log(this.users.recordset);
-        // this.usersToUse = this.users.recordset;
-        // console.log(this.usersToUse)
+        this.usersSQL = data;
+        console.log(this.usersSQL);
       });
   }
   presentToast() {
@@ -72,20 +62,26 @@ export class LoginPage {
 
   toast.present();
   }
-  presentLoading() {
-  let loading = this.loadingCtrl.create({
-    content: 'Iniciando sesión...'
-  });
+  presentLoading(i) {
+    let loading = this.loadingCtrl.create({
+      content: 'Iniciando sesión...'
+    });
 
-  loading.present();
+    loading.present();
 
-  setTimeout(() => {
-  this.navCtrl.setRoot(SeleccionPage, {username: JSON.stringify(this.credencialesSQL.recordset[0].username)});
-}, 1500);
+    setTimeout(() => {
+    this.navCtrl.setRoot(SeleccionPage, {username: this.usersSQL[i].nombre, usersecondname: this.usersSQL[i].apellido});
+    }, 1500);
 
-  setTimeout(() => {
-    loading.dismiss();
-  }, 3000);
+    setTimeout(() => {
+      loading.dismiss();
+    }, 3000);
+  }
+  ionViewDidEnter(){
+    this.menu.enable(false);
+  }
+  ionViewWillLeave(){
+    this.menu.enable(true);
   }
 
 }

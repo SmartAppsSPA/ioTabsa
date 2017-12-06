@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //Importamos paginas a redireccionar
 import { AprobacionPage } from "../aprobacion/aprobacion";
 import { RechazoPage } from "../rechazo/rechazo";
+//importamos plug in a utilizar
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 @IonicPage()
 @Component({
@@ -11,7 +13,13 @@ import { RechazoPage } from "../rechazo/rechazo";
 })
 export class VerificacionPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private tts: TextToSpeech) {
+
+
+                    this.tts.speak('Verifike con cuidado la informacion de el pasajero.')
+                    .then(() => console.log('Success'))
+                    .catch((reason: any) => console.log(reason));
   }
 
   datosIncorrectos(){
