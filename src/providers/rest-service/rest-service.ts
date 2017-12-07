@@ -6,8 +6,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class RestServiceProvider {
 
-
-  apiURL = 'http://104.131.88.98:8081';
+  //Ip Local servidor Tabsa
+  apiURL = 'http://192.168.1.25:24500';
 
   constructor(public http: HttpClient) {}
 

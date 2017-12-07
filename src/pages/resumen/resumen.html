@@ -26,7 +26,7 @@
       <ion-icon name='clock' item-start></ion-icon>
       Hora:
       <ion-note item-end>
-      {{ tramo.cruce.horario_cruce | date: "h:mma" }}
+      {{ tramo.cruce.horario_cruce | date: "h:mma":'+0000' }}
       </ion-note>
     </ion-item>
     <ion-item>

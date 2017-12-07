@@ -91,7 +91,7 @@ export class ViajesPage {
   onSelectChange(origen:string){
     switch (origen){
       case "Punta Arenas":{
-        this.destinos = [{nombre_sitio:'Pornvenir', id_tramo:1}, {nombre_sitio:'Puerto Williams', id_tramo:3}, {nombre_sitio:'Isla Magdalena', id_tramo:9}, {nombre_sitio:'Bahía Punta Arenas', id_tramo:11}];
+        this.destinos = [{nombre_sitio:'Porvenir', id_tramo:1}, {nombre_sitio:'Puerto Williams', id_tramo:3}, {nombre_sitio:'Isla Magdalena', id_tramo:9}, {nombre_sitio:'Bahía Punta Arenas', id_tramo:11}];
         break;
       }
       case "Porvenir":{
