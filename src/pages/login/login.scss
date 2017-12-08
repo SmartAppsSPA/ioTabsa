@@ -1,8 +1,13 @@
 page-login {
   .background{
-    background-image: url('/assets/background.jpg');
-    background-size: cover !important;
+    background-image: url('../assets/bg.jpg') !important;
     background-repeat: no-repeat;
+  }
+  .logo{
+    background-image: url('../assets/logo.png') !important;
+    background-repeat: no-repeat !important;
+    height: 5.5em !important;
+    background-position: center !important;
   }
   .scroll-content{
     align-content: center;
