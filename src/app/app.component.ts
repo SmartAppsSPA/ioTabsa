@@ -6,6 +6,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { LoginPage } from '../pages/login/login';
 import { CierreEmbarquePage } from "../pages/cierre-embarque/cierre-embarque";
 import { AyudaPage } from '../pages/ayuda/ayuda';
+//plugins a utilizar
+import { Storage } from "@ionic/storage";
+
+import { ScanQrPage } from "../pages/scan-qr/scan-qr";
+
 
 
 
@@ -16,10 +21,10 @@ export class MyApp {
   Ayuda = AyudaPage;
   CierreEmbarque = CierreEmbarquePage;
 
-  rootPage:any = LoginPage;
+  rootPage:any = ScanQrPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-              private menuCtrl:MenuController) {
+              private menuCtrl:MenuController, public storage: Storage) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

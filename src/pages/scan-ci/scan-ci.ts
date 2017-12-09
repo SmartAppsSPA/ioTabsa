@@ -17,10 +17,11 @@ import { RechazoPage } from "../rechazo/rechazo";
 export class ScanCiPage {
   dataCI:any;
   RutQR:any;
-  rut:string = "17237332-1"
+  rut:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public restService: RestServiceProvider, private barcodeScanner: BarcodeScanner) {
+                this.rut = this.navParams.data[3];
   }
 
   scan(){
@@ -32,7 +33,7 @@ export class ScanCiPage {
       let sliceData = this.RutQR[0].split("=");
       console.log("Segundo Slice entrega: " + sliceData);
       if(JSON.stringify(sliceData[1]) == JSON.stringify(this.rut)){
-        this.navCtrl.setRoot(AprobacionPage);
+        this.navCtrl.setRoot(AprobacionPage, this.navParams.data);
       }
       else{
         this.navCtrl.push(RechazoPage);
@@ -40,7 +41,7 @@ export class ScanCiPage {
     });
   }
   verificacionManual(){
-    this.navCtrl.push(VerificacionPage);
+    this.navCtrl.push(VerificacionPage, this.navParams.data);
   }
 
 }

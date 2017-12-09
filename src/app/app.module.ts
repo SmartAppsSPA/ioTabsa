@@ -5,6 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { Md5 } from 'ts-md5/dist/md5';
+import { IonicStorageModule } from "@ionic/storage";
 
 import { MyApp } from './app.component';
 //Pantallas de la App
@@ -50,7 +51,8 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
   imports: [
     BrowserModule,
     HttpClientModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -76,7 +78,8 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
     TextToSpeech,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestServiceProvider,
-    Md5
+    Md5,
+    IonicStorageModule
   ]
 })
 export class AppModule {}
