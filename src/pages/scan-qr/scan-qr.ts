@@ -24,11 +24,12 @@ export class ScanQrPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private barcodeScanner: BarcodeScanner, public restService: RestServiceProvider,
               public loadingCtrl: LoadingController) {
+                console.log(this.navParams.data.id_usuario);
   }
 
   scan(){
-   // this.barcodeScanner.scan().then((barcodeData) => {
-   //    this.dataQR = barcodeData.text;
+  //  this.barcodeScanner.scan().then((barcodeData) => {
+  //   this.dataQR = barcodeData.text;
       this.dataQR = '112233&218335&9&EJ3506599&Elzbieta&Jurkiewicz&3122017&2017-12-03 14:00:00&5891&1975-05-09&186106178';
       let splittedQR = this.dataQR.split("&");
       this.data = {id_ticket:splittedQR[0], id_reserva:splittedQR[1], id_cruce:splittedQR[8], id_tramo:splittedQR[2], val_seed:splittedQR[10]};
@@ -37,15 +38,15 @@ export class ScanQrPage {
         this.resultadoSQL = data[0];
         console.log(this.resultadoSQL)
         if(this.resultadoSQL.resultado != 0){
-           this.navCtrl.setRoot(ScanCiPage, splittedQR);
+           this.navCtrl.setRoot(ScanCiPage, {QR:splittedQR, id_usuario:this.navParams.data.id_usuario});
          }
         else{
           this.navCtrl.setRoot(RechazoPage);
         }
-       });
+        });
       // this.presentLoading();
       // }, (err) => {
-      //  console.log(err);
+      // console.log(err);
       // });
   }
   presentLoading() {

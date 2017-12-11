@@ -24,7 +24,7 @@ export class SeleccionPage {
     loading.present();
 
     setTimeout(() => {
-      this.navCtrl.setRoot(ViajesPage);
+      this.navCtrl.setRoot(ViajesPage, this.usuario.id_usuario);
     }, 1200);
 
     setTimeout(() => {

@@ -70,7 +70,7 @@ export class LoginPage {
     loading.present();
 
     setTimeout(() => {
-    this.navCtrl.setRoot(SeleccionPage, {username: this.usersSQL[i].nombre, usersecondname: this.usersSQL[i].apellido});
+    this.navCtrl.setRoot(SeleccionPage, {id_usuario: this.usersSQL[i].id_usuario, username: this.usersSQL[i].nombre, usersecondname: this.usersSQL[i].apellido});
     }, 1500);
 
     setTimeout(() => {

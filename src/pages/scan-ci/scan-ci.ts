@@ -21,7 +21,7 @@ export class ScanCiPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public restService: RestServiceProvider, private barcodeScanner: BarcodeScanner) {
-                this.rut = this.navParams.data[3];
+                console.log(this.navParams.data);
   }
 
   scan(){

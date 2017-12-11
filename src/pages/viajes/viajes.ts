@@ -27,6 +27,7 @@ export class ViajesPage {
               public restServices: RestServiceProvider, private toastCtrl: ToastController,
               public loadingCtrl: LoadingController) {
                 this.infoViaje();
+                console.log(this.navParams.data);
   }
 
   buscarCruce(destino){
@@ -60,8 +61,9 @@ export class ViajesPage {
     });
   }
   //Funcion que envia los datos seleccionados en la vista de Seleccion de Viajes, a la pagina de Resumen
-  seleccionTramo(cruce, origen, destino){
-    this.navCtrl.setRoot(ResumenPage, {cruce, origen, destino});
+  seleccionTramo(cruce, origen, destino, id_usuario){
+    id_usuario = this.navParams.data;
+    this.navCtrl.setRoot(ResumenPage, {cruce, origen, destino, id_usuario});
   }
   presentToast() {
     let toast = this.toastCtrl.create({

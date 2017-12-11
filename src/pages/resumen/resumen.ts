@@ -20,7 +20,7 @@ export class ResumenPage {
   }
 
   viajeCorrecto(){
-    this.navCtrl.setRoot(ScanQrPage);
+    this.navCtrl.setRoot(ScanQrPage, this.tramo);
   }
   viajeIncorrecto(){
     this.presentLoading();

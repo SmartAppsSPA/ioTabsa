@@ -21,7 +21,7 @@ export class MyApp {
   Ayuda = AyudaPage;
   CierreEmbarque = CierreEmbarquePage;
 
-  rootPage:any = ScanQrPage;
+  rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               private menuCtrl:MenuController, public storage: Storage) {
