@@ -9,7 +9,8 @@ import { AyudaPage } from '../pages/ayuda/ayuda';
 //plugins a utilizar
 import { Storage } from "@ionic/storage";
 
-import { ScanQrPage } from "../pages/scan-qr/scan-qr";
+import { ScanCiPage } from "../pages/scan-ci/scan-ci";
+import { ViajesPage } from "../pages/viajes/viajes";
 
 
 

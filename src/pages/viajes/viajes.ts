@@ -61,7 +61,7 @@ export class ViajesPage {
     });
   }
   //Funcion que envia los datos seleccionados en la vista de Seleccion de Viajes, a la pagina de Resumen
-  seleccionTramo(cruce, origen, destino, id_usuario){
+  seleccionTramo(cruce, origen, destino, id_usuario, fecha){
     id_usuario = this.navParams.data;
     this.navCtrl.setRoot(ResumenPage, {cruce, origen, destino, id_usuario});
   }

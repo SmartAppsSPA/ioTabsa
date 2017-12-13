@@ -14,6 +14,7 @@ export class SeleccionPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public loadingCtrl: LoadingController) {
     this.usuario = this.navParams.data;
+    console.log(this.usuario);
   }
 
   abrirViajes():void{
@@ -24,7 +25,7 @@ export class SeleccionPage {
     loading.present();
 
     setTimeout(() => {
-      this.navCtrl.setRoot(ViajesPage, this.usuario.id_usuario);
+      this.navCtrl.setRoot(ViajesPage, {id_usuario:this.usuario.id_usuario});
     }, 1200);
 
     setTimeout(() => {

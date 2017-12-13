@@ -15,33 +15,47 @@ import { RechazoPage } from "../rechazo/rechazo";
   templateUrl: 'scan-ci.html',
 })
 export class ScanCiPage {
+  tramo:any;
+  dataQR:any
+
   dataCI:any;
-  RutQR:any;
+  manipulacionDataCI:any;
+
   rut:string;
+  fech_nac:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public restService: RestServiceProvider, private barcodeScanner: BarcodeScanner) {
-                console.log(this.navParams.data);
+                this.tramo = this.navParams.data.tramo;
+                this.dataQR = this.navParams.data.dataQR;
+                console.log(this.tramo);
+                console.log(this.dataQR);
+                this.rut = this.dataQR[3];
+                this.fech_nac = this.dataQR[9]
   }
 
   scan(){
     this.barcodeScanner.scan().then((barcodeData) => {
       this.dataCI = barcodeData.text;
-      console.log(this.dataCI);
-      this.RutQR = this.dataCI.split("&",1);
-      console.log("La data entregada es: " + this.RutQR);
-      let sliceData = this.RutQR[0].split("=");
-      console.log("Segundo Slice entrega: " + sliceData);
-      if(JSON.stringify(sliceData[1]) == JSON.stringify(this.rut)){
-        this.navCtrl.setRoot(AprobacionPage, this.navParams.data);
+      //Manipulamos la información entregada por el CI para usar solo el Rut, en este caso, dicho dato queda en splittedRUT[1]
+      this.manipulacionDataCI = this.dataCI.split("&");
+      let splittedRUT = this.manipulacionDataCI[0].split("=");
+      // Manipulamos la data entregada por el QR del CI para obtener la fecha de nacimiento, encontrada en la seccion MRZ del CI, en este caso se guarda en la variable slicedFechNAC
+
+      let splittedFechNAC = this.manipulacionDataCI[3].split("=");
+      let slicedFechNAC = splittedFechNAC[1].slice(10, -8)
+      let transformSlicedFechaNAC = '19' + slicedFechNAC.slice(0, -4) + '-' + slicedFechNAC.slice(2,-2) + '-' + slicedFechNAC.slice(4);
+
+      if(transformSlicedFechaNAC == this.fech_nac){
+        this.navCtrl.setRoot(AprobacionPage, {dataQR:this.dataQR, tramo:this.tramo});
       }
       else{
-        this.navCtrl.push(RechazoPage);
+        this.navCtrl.setRoot(RechazoPage, this.tramo);
       }
     });
   }
   verificacionManual(){
-    this.navCtrl.push(VerificacionPage, this.navParams.data);
+    this.navCtrl.push(VerificacionPage, {dataQR:this.dataQR, tramo:this.tramo});
   }
 
 }

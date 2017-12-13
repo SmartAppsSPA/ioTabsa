@@ -34,7 +34,7 @@ export class ResumenPage {
     loading.present();
 
     setTimeout(() => {
-    this.navCtrl.setRoot(ViajesPage);
+    this.navCtrl.setRoot(ViajesPage, this.tramo.id_usuario);
     }, 1500);
 
     setTimeout(() => {
