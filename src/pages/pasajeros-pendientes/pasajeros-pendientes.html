@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Lista de Pasajeros</ion-title>
+    <button ion-button icon-only menuToggle end>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card>
+    <ion-item *ngIf="pasajeros == null">
+      <h1>Aún no ha seleccionado<br>un tramo.</h1>
+      <br>
+      <h2>Debe seleccionar un tramo, para<br>poder ver la lista de pasajeros<br>por embarcar.</h2>
+    </ion-item>
+  </ion-card>
+  <ion-card *ngIf="pasajeros != null">
+    <ion-card-title><strong>Pasajeros por Embarcar</strong></ion-card-title>
+    <ion-list>
+      <ion-item *ngFor="let pasajero of pasajeros">
+        <b>Nombre</b>: {{pasajero.nombre}} {{pasajero.apellido}}
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

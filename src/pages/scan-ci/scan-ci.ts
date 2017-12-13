@@ -46,7 +46,7 @@ export class ScanCiPage {
       let slicedFechNAC = splittedFechNAC[1].slice(10, -8)
       let transformSlicedFechaNAC = '19' + slicedFechNAC.slice(0, -4) + '-' + slicedFechNAC.slice(2,-2) + '-' + slicedFechNAC.slice(4);
 
-      if(transformSlicedFechaNAC == this.fech_nac){
+      if(transformSlicedFechaNAC == this.fech_nac && splittedRUT[1] == this.rut){
         this.navCtrl.setRoot(AprobacionPage, {dataQR:this.dataQR, tramo:this.tramo});
       }
       else{

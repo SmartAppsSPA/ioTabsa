@@ -11,7 +11,7 @@ import { ScanQrPage } from "../scan-qr/scan-qr";
 })
 export class ResumenPage {
 
-  tramo:any = {};
+  tramo:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public loadingCtrl: LoadingController) {
@@ -20,7 +20,7 @@ export class ResumenPage {
   }
 
   viajeCorrecto(){
-    this.navCtrl.setRoot(ScanQrPage, this.tramo);
+    this.LoadingConfirmacion();
   }
   viajeIncorrecto(){
     this.presentLoading();
@@ -40,6 +40,22 @@ export class ResumenPage {
     setTimeout(() => {
       loading.dismiss();
     }, 3000);
+  }
+
+  LoadingConfirmacion(){
+    let loading = this.loadingCtrl.create({
+      content: 'Cargando...'
+    });
+
+    loading.present();
+
+    setTimeout(() => {
+    this.navCtrl.setRoot(ScanQrPage, this.tramo);
+  }, 2500);
+
+    setTimeout(() => {
+      loading.dismiss();
+    }, 5000);
   }
 
 }

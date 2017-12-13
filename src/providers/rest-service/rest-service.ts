@@ -7,6 +7,7 @@ import 'rxjs/add/operator/map';
 export class RestServiceProvider {
 
   //Ip Local servidor Tabsa
+  // apiURL = 'http://192.168.1.25:24500';
   apiURL = 'http://104.131.88.98:24500';
 
   constructor(public http: HttpClient) {}
@@ -68,6 +69,15 @@ export class RestServiceProvider {
   postCantPasajeros(id_cruce_tramo){
     return new Promise (resolve => {
       this.http.post(this.apiURL + '/cantPasajeros', id_cruce_tramo).subscribe(data =>{
+        resolve(data);
+      }, err =>{
+        console.log(err);
+      });
+    });
+  }
+  postListaPasajeros(id_cruce_tramo){
+    return new Promise (resolve => {
+      this.http.post(this.apiURL + '/pendientePasajeros', id_cruce_tramo).subscribe(data =>{
         resolve(data);
       }, err =>{
         console.log(err);

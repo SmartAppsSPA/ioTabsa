@@ -17,12 +17,11 @@ import { VerificacionPage } from "../pages/verificacion/verificacion";
 import { ResultadoPage } from "../pages/resultado/resultado";
 import { ScanQrPage } from "../pages/scan-qr/scan-qr";
 import { ScanCiPage } from "../pages/scan-ci/scan-ci";
-import { ScanCiManualPage } from "../pages/scan-ci-manual/scan-ci-manual";
 import { RechazoPage } from "../pages/rechazo/rechazo";
 import { AprobacionPage } from "../pages/aprobacion/aprobacion";
 //Modales
-import { CierreEmbarquePage } from "../pages/cierre-embarque/cierre-embarque";
 import { AyudaPage } from "../pages/ayuda/ayuda";
+import { PasajerosPendientesPage } from "../pages/pasajeros-pendientes/pasajeros-pendientes";
 //plugin
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
@@ -39,11 +38,10 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
     ResumenPage,
     VerificacionPage,
     ResultadoPage,
-    CierreEmbarquePage,
+    PasajerosPendientesPage,
     AyudaPage,
     ScanQrPage,
     ScanCiPage,
-    ScanCiManualPage,
     RechazoPage,
     AprobacionPage
 
@@ -62,12 +60,11 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
     ViajesPage,
     ResumenPage,
     VerificacionPage,
+    PasajerosPendientesPage,
     ResultadoPage,
-    CierreEmbarquePage,
     AyudaPage,
     ScanQrPage,
     ScanCiPage,
-    ScanCiManualPage,
     RechazoPage,
     AprobacionPage
   ],

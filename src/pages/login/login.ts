@@ -35,9 +35,8 @@ export class LoginPage {
           this.presentLoading(i);
           break;
         }
-        else if(this.credenciales.username != this.usersSQL[i].username && password != this.usersSQL[i][""]){
+        else if(i == (this.usersSQL.length-1)){
           this.presentToast();
-          break;
         }
     }
   }
@@ -49,9 +48,10 @@ export class LoginPage {
         console.log(this.usersSQL);
       });
   }
+
   presentToast() {
   let toast = this.toastCtrl.create({
-    message: 'Usuario o Contraseña Incorrecta.',
+    message: 'Usuario no encontrado. Verifique nombre de Usuario y/o Contraseña Incorrecta.',
     duration: 3500,
     position: 'bottom'
   });
@@ -62,6 +62,7 @@ export class LoginPage {
 
   toast.present();
   }
+
   presentLoading(i) {
     let loading = this.loadingCtrl.create({
       content: 'Iniciando sesión...'

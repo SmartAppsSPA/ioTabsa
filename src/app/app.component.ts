@@ -1,16 +1,13 @@
-import { Component } from '@angular/core';
-import { Platform, MenuController } from 'ionic-angular';
+import { Component, ViewChild  } from '@angular/core';
+import { Nav, Platform, MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
-import { CierreEmbarquePage } from "../pages/cierre-embarque/cierre-embarque";
 import { AyudaPage } from '../pages/ayuda/ayuda';
+import { PasajerosPendientesPage } from "../pages/pasajeros-pendientes/pasajeros-pendientes";
 //plugins a utilizar
 import { Storage } from "@ionic/storage";
-
-import { ScanCiPage } from "../pages/scan-ci/scan-ci";
-import { ViajesPage } from "../pages/viajes/viajes";
 
 
 
@@ -19,13 +16,14 @@ import { ViajesPage } from "../pages/viajes/viajes";
   templateUrl: 'app.html'
 })
 export class MyApp {
+  @ViewChild(Nav) nav: Nav;
   Ayuda = AyudaPage;
-  CierreEmbarque = CierreEmbarquePage;
+  PasajerosPendientes = PasajerosPendientesPage;
 
   rootPage:any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-              private menuCtrl:MenuController, public storage: Storage) {
+              private menuCtrl:MenuController, public storage: Storage ) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
@@ -35,7 +33,12 @@ export class MyApp {
   }
 
   abrirPagina( pagina:any ){
-    this.rootPage = pagina;
+    this.nav.push(pagina);
     this.menuCtrl.close();
   }
+  logOut(){
+    this.nav.setRoot(LoginPage);
+    this.menuCtrl.close();
+  }
+
 }

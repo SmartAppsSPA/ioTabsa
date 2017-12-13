@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { DatePipe } from '@angular/common';
 import { NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 //Pagina ResumenPage
 import { ResumenPage } from "../resumen/resumen";
@@ -143,6 +142,6 @@ export class ViajesPage {
     }
   }
   limpiarBusqueda(){
-    this.navCtrl.setRoot(ViajesPage);
+    this.navCtrl.setRoot(ViajesPage, this.navParams.data);
   }
 }

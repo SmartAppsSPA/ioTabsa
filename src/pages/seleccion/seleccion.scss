@@ -8,4 +8,10 @@ page-seleccion {
     border-radius: 8px;
     background-color: #ececec;
   }
+  .logo{
+    background-image: url('../assets/logo.png') !important;
+    background-repeat: no-repeat !important;
+    height: 6em !important;
+    background-position: center !important;
+  }
 }

@@ -20,7 +20,7 @@ export class ScanQrPage {
   data = {id_ticket:'', id_reserva:'', id_cruce:'', id_tramo:'', val_seed:''};
   dataQR:string;
   resultadoSQL:any ={ticket:'', resultado:''};
-  public workoutProgress: string = '0' + '%';
+  public cantPasajeros:string;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -28,14 +28,24 @@ export class ScanQrPage {
               public loadingCtrl: LoadingController) {
                 this.tramo = this.navParams.data;
                 console.log(this.tramo);
+                let id_cruce_tramo:any = {id_cruce:this.tramo.cruce.id_cruce, id_tramo:this.tramo.cruce.id_tramo};
+                this.restService.postCantPasajeros(id_cruce_tramo).then(dataSP =>{
+                  let resultado = dataSP[0].pasajeros;
+                  this.cantPasajeros = resultado + ' de ' + this.tramo.cruce.cupo_pasajeros_maximo;
+                  console.log(this.cantPasajeros)
+                });
+
   }
 
   scan(){
    this.barcodeScanner.scan().then((barcodeData) => {
+    this.presentLoading();
     this.dataQR = barcodeData.text;
-      // this.dataQR = '112233&218335&9&EJ3506599&Elzbieta&Jurkiewicz&3122017&2017-12-03 14:00:00&5891&1975-05-09&186106178';
-      let splittedQR = this.dataQR.split("&");
-      this.data = {id_ticket:splittedQR[0], id_reserva:splittedQR[1], id_cruce:splittedQR[8], id_tramo:splittedQR[2], val_seed:splittedQR[10]};
+    console.log(this.dataQR);
+    //  this.dataQR = '112233&218335&9&EJ3506599&Elzbieta&Jurkiewicz&3122017&2017-12-03 14:00:00&5891&1975-05-09&186106178';
+    //  this.dataQR = '347&221045&9&18748063-9&Daniela&Ibarra&20171213&2017-12-13 14:00:00&5901&1994-02-19&1288017151';
+    let splittedQR = this.dataQR.split("&");
+     this.data = {id_ticket:splittedQR[0], id_reserva:splittedQR[1], id_cruce:splittedQR[8], id_tramo:splittedQR[2], val_seed:splittedQR[10]};
       console.log(this.data);
       this.restService.postValTicket(this.data).then(dataSP =>{
         this.resultadoSQL = dataSP[0];
@@ -45,18 +55,19 @@ export class ScanQrPage {
 
         let fechaQRsplit = splittedQR[7].split(" ");
         let fechaQR = fechaQRsplit[0]
+        console.log(fechaQR)
+        console.log(fecha)
 
-        if(this.resultadoSQL.resultado != 0 && fechaQR == fecha){
+        if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
            this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
          }
         else{
           this.navCtrl.setRoot(RechazoPage, this.tramo);
         }
       });
-      this.presentLoading();
     }, (err) => {
       console.log(err);
-      });
+    });
   }
   presentLoading() {
     let loading = this.loadingCtrl.create({
@@ -67,11 +78,7 @@ export class ScanQrPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2500);
+    }, 2650);
 
-  }
-  updateProgress(val) {
-   // Update percentage value where the above is a decimal
-    this.workoutProgress = Math.min( (val * 100), 100) + '%';
   }
 }
