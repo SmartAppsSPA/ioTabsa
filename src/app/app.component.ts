@@ -57,6 +57,7 @@ export class MyApp {
   logOut(){
     localStorage.removeItem("ajustes");
     localStorage.removeItem("usuario");
+    localStorage.removeItem("cruce");
     this.nav.setRoot(LoginPage);
     this.menuCtrl.close();
   }

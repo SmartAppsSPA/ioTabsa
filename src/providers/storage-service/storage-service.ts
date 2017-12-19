@@ -9,7 +9,7 @@ export class StorageServiceProvider {
   ajustes = {
     existe_usuario: false,
     mostrar_login: true,
-    mostrar_seleccionTramo: true
+    mostrar_seleccionTramo: false
   };
   usuario = {
     id_usuario: '',

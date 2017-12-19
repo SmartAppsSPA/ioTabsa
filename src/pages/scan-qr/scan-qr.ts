@@ -75,7 +75,7 @@ export class ScanQrPage {
   }
   ionViewWillEnter(){
     this.tramo = this.navParams.data;
-    localStorage.setItem("cruce", JSON.stringify(this.tramo.cruce));
+    // localStorage.setItem("cruce", JSON.stringify(this.tramo.cruce));
 
     console.log(this.tramo);
     let id_cruce_tramo:any = {id_cruce:this.tramo.cruce.id_cruce, id_tramo:this.tramo.cruce.id_tramo};
