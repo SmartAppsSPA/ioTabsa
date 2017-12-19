@@ -7,6 +7,7 @@ import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 // Importamos siguiente pantalla
 import { RechazoPage } from "../rechazo/rechazo";
 import { ScanCiPage } from "../scan-ci/scan-ci";
+import { VerificacionPage } from "../verificacion/verificacion";
 
 
 
@@ -26,15 +27,6 @@ export class ScanQrPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private barcodeScanner: BarcodeScanner, public restService: RestServiceProvider,
               public loadingCtrl: LoadingController) {
-                this.tramo = this.navParams.data;
-                console.log(this.tramo);
-                let id_cruce_tramo:any = {id_cruce:this.tramo.cruce.id_cruce, id_tramo:this.tramo.cruce.id_tramo};
-                this.restService.postCantPasajeros(id_cruce_tramo).then(dataSP =>{
-                  let resultado = dataSP[0].pasajeros;
-                  this.cantPasajeros = resultado + ' de ' + this.tramo.cruce.cupo_pasajeros_maximo;
-                  console.log(this.cantPasajeros)
-                });
-
   }
 
   scan(){
@@ -46,6 +38,8 @@ export class ScanQrPage {
     //  this.dataQR = '347&221045&9&18748063-9&Daniela&Ibarra&20171213&2017-12-13 14:00:00&5901&1994-02-19&1288017151';
     let splittedQR = this.dataQR.split("&");
      this.data = {id_ticket:splittedQR[0], id_reserva:splittedQR[1], id_cruce:splittedQR[8], id_tramo:splittedQR[2], val_seed:splittedQR[10]};
+     // Guardamos la nacionalidad, para discriminar a que Pagina sera redireccionado el pasajero (Chileno = ScanCI / Extranjero = Verificacion Manual)
+     let nacionalidadQR = splittedQR[11];
       console.log(this.data);
       this.restService.postValTicket(this.data).then(dataSP =>{
         this.resultadoSQL = dataSP[0];
@@ -57,16 +51,38 @@ export class ScanQrPage {
         let fechaQR = fechaQRsplit[0]
         console.log(fechaQR)
         console.log(fecha)
-
-        if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
-           this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
-         }
+        // Primero verificamos si el pasajero es Chileno o Extranjero
+        if(nacionalidadQR == 'Chile'){
+          if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
+             this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
+           }
+          else{
+            this.navCtrl.setRoot(RechazoPage, this.tramo);
+          }
+        }
         else{
-          this.navCtrl.setRoot(RechazoPage, this.tramo);
+          if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
+            this.navCtrl.setRoot(VerificacionPage, {dataQR:splittedQR, tramo:this.tramo});
+          }
+          else{
+            this.navCtrl.setRoot(RechazoPage, this.tramo);
+          }
         }
       });
     }, (err) => {
       console.log(err);
+    });
+  }
+  ionViewWillEnter(){
+    this.tramo = this.navParams.data;
+    localStorage.setItem("cruce", JSON.stringify(this.tramo.cruce));
+
+    console.log(this.tramo);
+    let id_cruce_tramo:any = {id_cruce:this.tramo.cruce.id_cruce, id_tramo:this.tramo.cruce.id_tramo};
+    this.restService.postCantPasajeros(id_cruce_tramo).then(dataSP =>{
+      let resultado = dataSP[0].pasajeros;
+      this.cantPasajeros = resultado + ' de ' + this.tramo.cruce.cupo_pasajeros_maximo;
+      console.log(this.cantPasajeros)
     });
   }
   presentLoading() {
@@ -78,7 +94,7 @@ export class ScanQrPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2650);
+    }, 2000);
 
   }
 }

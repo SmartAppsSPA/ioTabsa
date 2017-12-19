@@ -5,8 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpClientModule } from '@angular/common/http';
 import { Md5 } from 'ts-md5/dist/md5';
-import { IonicStorageModule } from "@ionic/storage";
-
 import { MyApp } from './app.component';
 //Pantallas de la App
 import { LoginPage } from '../pages/login/login';
@@ -25,8 +23,11 @@ import { PasajerosPendientesPage } from "../pages/pasajeros-pendientes/pasajeros
 //plugin
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { IonicStorageModule } from '@ionic/storage';
+
 //Servicios de la Aplicacion
 import { RestServiceProvider } from '../providers/rest-service/rest-service';
+import { StorageServiceProvider } from '../providers/storage-service/storage-service';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import { RestServiceProvider } from '../providers/rest-service/rest-service';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     RestServiceProvider,
     Md5,
-    IonicStorageModule
+    IonicStorageModule,
+    StorageServiceProvider
   ]
 })
 export class AppModule {}

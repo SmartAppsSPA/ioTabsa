@@ -25,7 +25,6 @@ export class ViajesPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public restServices: RestServiceProvider, private toastCtrl: ToastController,
               public loadingCtrl: LoadingController) {
-                this.infoViaje();
                 console.log(this.navParams.data);
   }
 
@@ -49,6 +48,9 @@ export class ViajesPage {
       this.presentToast();
     }
   }
+  ionViewWillEnter(){
+    this.infoViaje();
+  }
   //Funcion que toma la fecha del día y consulta al Procedimiento almacedado, aserca de los tramos de la fecha indicada. Y guarda la informacion recibida, en la variable cruceSQL
   infoViaje(){
     let fechaActual = new Date().toLocaleDateString()
@@ -67,7 +69,7 @@ export class ViajesPage {
   presentToast() {
     let toast = this.toastCtrl.create({
       message: 'No se han encontrado Tramos disponibles. Por favor, consultar al encargado.',
-      duration: 4500,
+      duration: 5000,
       position: 'bottom'
     });
 
@@ -86,7 +88,7 @@ export class ViajesPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2500);
+    }, 1500);
 
   }
   onSelectChange(origen:string){

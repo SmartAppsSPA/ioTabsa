@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 //Importamos el plugin para Escanear Codigo QR
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 //Importamos Servicio Rest para validacion de Cedula de Identidad / CI
@@ -25,17 +25,13 @@ export class ScanCiPage {
   fech_nac:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public restService: RestServiceProvider, private barcodeScanner: BarcodeScanner) {
-                this.tramo = this.navParams.data.tramo;
-                this.dataQR = this.navParams.data.dataQR;
-                console.log(this.tramo);
-                console.log(this.dataQR);
-                this.rut = this.dataQR[3];
-                this.fech_nac = this.dataQR[9]
+              public restService: RestServiceProvider, private barcodeScanner: BarcodeScanner,
+              public loadingCtrl: LoadingController) {
   }
 
   scan(){
     this.barcodeScanner.scan().then((barcodeData) => {
+      this.presentLoading();
       this.dataCI = barcodeData.text;
       //Manipulamos la información entregada por el CI para usar solo el Rut, en este caso, dicho dato queda en splittedRUT[1]
       this.manipulacionDataCI = this.dataCI.split("&");
@@ -54,8 +50,25 @@ export class ScanCiPage {
       }
     });
   }
-  verificacionManual(){
-    this.navCtrl.push(VerificacionPage, {dataQR:this.dataQR, tramo:this.tramo});
+  ionViewWillEnter(){
+    this.tramo = this.navParams.data.tramo;
+    this.dataQR = this.navParams.data.dataQR;
+    console.log(this.tramo);
+    console.log(this.dataQR);
+    this.rut = this.dataQR[3];
+    this.fech_nac = this.dataQR[9]
+  }
+  presentLoading() {
+    let loading = this.loadingCtrl.create({
+      content: 'Validando Ticket...'
+    });
+
+    loading.present();
+
+    setTimeout(() => {
+      loading.dismiss();
+    }, 2000);
+
   }
 
 }

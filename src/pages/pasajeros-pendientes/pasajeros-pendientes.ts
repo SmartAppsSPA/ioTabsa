@@ -36,7 +36,7 @@ export class PasajerosPendientesPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 3000);
+    }, 2500);
   }
 
 

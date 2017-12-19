@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { SeleccionPage } from "../seleccion/seleccion";
 //Importamos el servicio Rest
 import { RestServiceProvider } from "../../providers/rest-service/rest-service";
+//importamos plugin a utilizar
 import {Md5} from 'ts-md5/dist/md5';
 
 
@@ -24,7 +25,7 @@ export class LoginPage {
               private menu: MenuController, public restService: RestServiceProvider,
               public http: HttpClient, private toastCtrl: ToastController,
               public loadingCtrl: LoadingController) {
-                this.getUsers();
+
   }
 
   loginApp(){
@@ -39,6 +40,9 @@ export class LoginPage {
           this.presentToast();
         }
     }
+  }
+  ionViewWillEnter(){
+    this.getUsers();
   }
 
   getUsers(){
@@ -72,11 +76,11 @@ export class LoginPage {
 
     setTimeout(() => {
     this.navCtrl.setRoot(SeleccionPage, {id_usuario: this.usersSQL[i].id_usuario, username: this.usersSQL[i].nombre, usersecondname: this.usersSQL[i].apellido});
-    }, 1500);
+  }, 1500);
 
     setTimeout(() => {
       loading.dismiss();
-    }, 3000);
+    }, 2000);
   }
   ionViewDidEnter(){
     this.menu.enable(false);

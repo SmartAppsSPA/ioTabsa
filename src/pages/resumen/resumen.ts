@@ -39,7 +39,7 @@ export class ResumenPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 3000);
+    }, 2800);
   }
 
   LoadingConfirmacion(){
@@ -51,11 +51,11 @@ export class ResumenPage {
 
     setTimeout(() => {
     this.navCtrl.setRoot(ScanQrPage, this.tramo);
-  }, 2500);
+  }, 2000);
 
     setTimeout(() => {
       loading.dismiss();
-    }, 5000);
+    }, 2800);
   }
 
 }
