@@ -50,6 +50,9 @@ export class ScanCiPage {
       }
     });
   }
+  verificacionManual(){
+  this.navCtrl.push(VerificacionPage, {dataQR:this.dataQR, tramo:this.tramo});
+  }
   ionViewWillEnter(){
     this.tramo = this.navParams.data.tramo;
     this.dataQR = this.navParams.data.dataQR;

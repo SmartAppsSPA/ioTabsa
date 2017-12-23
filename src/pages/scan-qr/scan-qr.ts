@@ -35,7 +35,7 @@ export class ScanQrPage {
     this.dataQR = barcodeData.text;
     console.log(this.dataQR);
     //  this.dataQR = '112233&218335&9&EJ3506599&Elzbieta&Jurkiewicz&3122017&2017-12-03 14:00:00&5891&1975-05-09&186106178';
-    //  this.dataQR = '347&221045&9&18748063-9&Daniela&Ibarra&20171213&2017-12-13 14:00:00&5901&1994-02-19&1288017151';
+    // this.dataQR = '347&221045&9&18748063-9&Daniela&Ibarra&20171213&2017-12-19 14:00:00&5901&1994-02-19&1288017151&151';
     let splittedQR = this.dataQR.split("&");
      this.data = {id_ticket:splittedQR[0], id_reserva:splittedQR[1], id_cruce:splittedQR[8], id_tramo:splittedQR[2], val_seed:splittedQR[10]};
      // Guardamos la nacionalidad, para discriminar a que Pagina sera redireccionado el pasajero (Chileno = ScanCI / Extranjero = Verificacion Manual)
@@ -52,7 +52,7 @@ export class ScanQrPage {
         console.log(fechaQR)
         console.log(fecha)
         // Primero verificamos si el pasajero es Chileno o Extranjero
-        if(nacionalidadQR == 'Chile'){
+        if(nacionalidadQR == "152"){
           if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
              this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
            }
