@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
 //Importamos el plugin para Escanear Codigo QR
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 // Importamos Servicio Rest para validacion de codigo QR
@@ -26,7 +26,7 @@ export class ScanQrPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private barcodeScanner: BarcodeScanner, public restService: RestServiceProvider,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
   }
 
   scan(){
@@ -42,30 +42,37 @@ export class ScanQrPage {
      let nacionalidadQR = splittedQR[11];
       console.log(this.data);
       this.restService.postValTicket(this.data).then(dataSP =>{
-        this.resultadoSQL = dataSP[0];
-        console.log(this.resultadoSQL)
-        //Tomamos la fecha del cruce y la manipulamos para quitar la hora de la variable, y así poder compararla con la fecha del codigo QR de la Tarjeta de Embarque
-        let fecha = this.navParams.data.cruce.horario_cruce.split("T");
 
-        let fechaQRsplit = splittedQR[7].split(" ");
-        let fechaQR = fechaQRsplit[0]
-        console.log(fechaQR)
-        console.log(fecha)
-        // Primero verificamos si el pasajero es Chileno o Extranjero
-        if(nacionalidadQR == "152"){
-          if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
-             this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
-           }
-          else{
-            this.navCtrl.setRoot(RechazoPage, this.tramo);
-          }
+        if(dataSP['name'] === 'HttpErrorResponse'){
+          this.presentToast();
+          console.log("Existe error");
         }
         else{
-          if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
-            this.navCtrl.setRoot(VerificacionPage, {dataQR:splittedQR, tramo:this.tramo});
+          this.resultadoSQL = dataSP[0];
+          console.log(this.resultadoSQL)
+          //Tomamos la fecha del cruce y la manipulamos para quitar la hora de la variable, y así poder compararla con la fecha del codigo QR de la Tarjeta de Embarque
+          let fecha = this.navParams.data.cruce.horario_cruce.split("T");
+
+          let fechaQRsplit = splittedQR[7].split(" ");
+          let fechaQR = fechaQRsplit[0]
+          console.log(fechaQR)
+          console.log(fecha)
+          // Primero verificamos si el pasajero es Chileno o Extranjero
+          if(nacionalidadQR == "152"){
+            if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
+               this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
+             }
+            else{
+              this.navCtrl.setRoot(RechazoPage, this.tramo);
+            }
           }
           else{
-            this.navCtrl.setRoot(RechazoPage, this.tramo);
+            if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
+              this.navCtrl.setRoot(VerificacionPage, {dataQR:splittedQR, tramo:this.tramo});
+            }
+            else{
+              this.navCtrl.setRoot(RechazoPage, this.tramo);
+            }
           }
         }
       });
@@ -94,7 +101,20 @@ export class ScanQrPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2000);
+    }, 1850);
 
+  }
+  presentToast() {
+  let toast = this.toastCtrl.create({
+    message: 'ERROR: El ticket del pasajero presenta problemas en el código QR. Verifique la Tarjeta de Embarque cuidadosamente.',
+    duration: 3000,
+    position: 'bottom'
+  });
+
+  toast.onDidDismiss(() => {
+    console.log('Dismissed toast');
+  });
+
+  toast.present();
   }
 }

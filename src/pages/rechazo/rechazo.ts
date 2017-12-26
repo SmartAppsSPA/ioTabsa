@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //importamos Pagina para seguir escaneando Pasajeros
 import { ScanQrPage } from "../scan-qr/scan-qr";
-import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 
 
@@ -14,13 +13,15 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
 export class RechazoPage {
   tramo:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              private tts: TextToSpeech) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
                 this.tramo = this.navParams.data;
                 console.log(this.tramo);
-                this.tts.speak('Datos incorrectos.')
-                .then(() => console.log('Success'))
-                .catch((reason: any) => console.log(reason));
+
+                //Reproducción de audio de rechazo al entrar a la página.
+                let audio = new Audio();
+                audio.src = "assets/audio/datos_incorrectos.mp3";
+                audio.load();
+                audio.play();
   }
 
   siguientePasajero(){

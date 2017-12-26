@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //importamos paginas a redireccionar
 import { ScanQrPage } from "../scan-qr/scan-qr";
-import { TextToSpeech } from '@ionic-native/text-to-speech';
 //Importamos Servicios APIRest
 import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 
@@ -20,13 +19,15 @@ export class AprobacionPage {
   data = {id_ticket:'', id_reserva:'', id_cruce:'', id_tramo:'', val_seed:'', id_usuario:''};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              private tts: TextToSpeech, public restServices: RestServiceProvider) {
+              public restServices: RestServiceProvider) {
                 this.tramo = this.navParams.data.tramo;
                 this.dataQR = this.navParams.data.dataQR;
                 console.log(this.tramo);
-                this.tts.speak('Pasajero embarcado.')
-                .then(() => console.log('Success'))
-                .catch((reason: any) => console.log(reason));
+                //Reproducción de audio de aprobación al entrar a la página.
+                let audio = new Audio();
+                audio.src = "assets/audio/pasajero_embarcado.mp3";
+                audio.load();
+                audio.play();
   }
 
   siguientePasajero(){
