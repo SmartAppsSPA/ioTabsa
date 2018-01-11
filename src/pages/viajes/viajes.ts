@@ -4,6 +4,7 @@ import { NavController, NavParams, ToastController, LoadingController } from 'io
 import { ResumenPage } from "../resumen/resumen";
 //Importamos Servicios APIRest
 import { RestServiceProvider } from "../../providers/rest-service/rest-service";
+import { StorageServiceProvider } from "../../providers/storage-service/storage-service";
 
 
 @Component({
@@ -24,7 +25,7 @@ export class ViajesPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public restServices: RestServiceProvider, private toastCtrl: ToastController,
-              public loadingCtrl: LoadingController) {
+              public loadingCtrl: LoadingController, private storageService: StorageServiceProvider) {
                 console.log(this.navParams.data);
   }
 
@@ -48,24 +49,32 @@ export class ViajesPage {
       this.presentToast();
     }
   }
+
   ionViewWillEnter(){
-    this.infoViaje();
+    this.storageService.cargar_Tramos();
+    this.cruceSQL = this.storageService.TramosSQL;
   }
+
+  //Ver funcion en app.component.ts para mayor información
+
   //Funcion que toma la fecha del día y consulta al Procedimiento almacedado, aserca de los tramos de la fecha indicada. Y guarda la informacion recibida, en la variable cruceSQL
-  infoViaje(){
-    let fechaActual = new Date().toLocaleDateString()
-    let fechaSplitted = fechaActual.split("/");
-    let fechaNueva = fechaSplitted[2]+"-"+fechaSplitted[1]+"-"+fechaSplitted[0];
-    this.fechas.fecha = fechaNueva.toString();
-    this.restServices.postDate(this.fechas).then(data =>{
-      this.cruceSQL = data;
-    });
-  }
+  // infoViaje(){
+  //   let fechaActual = new Date().toLocaleDateString()
+  //   let fechaSplitted = fechaActual.split("/");
+  //   let fechaNueva = fechaSplitted[2]+"-"+fechaSplitted[1]+"-"+fechaSplitted[0];
+  //   this.fechas.fecha = fechaNueva.toString();
+  //   this.restServices.postDate(this.fechas).then(data =>{
+  //     this.cruceSQL = data;
+  //   });
+  // }
+
+
   //Funcion que envia los datos seleccionados en la vista de Seleccion de Viajes, a la pagina de Resumen
   seleccionTramo(cruce, origen, destino, id_usuario, fecha){
     id_usuario = this.navParams.data;
     this.navCtrl.setRoot(ResumenPage, {cruce, origen, destino, id_usuario});
   }
+
   presentToast() {
     let toast = this.toastCtrl.create({
       message: 'No se han encontrado Tramos disponibles. Por favor, consultar al encargado.',

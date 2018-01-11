@@ -11,6 +11,7 @@ import { ScanQrPage } from "../pages/scan-qr/scan-qr";
 //plugins a utilizar
 import { Storage } from "@ionic/storage";
 import { StorageServiceProvider } from "../providers/storage-service/storage-service";
+import { RestServiceProvider } from "../providers/rest-service/rest-service";
 
 
 
@@ -23,12 +24,17 @@ export class MyApp {
   Ayuda = AyudaPage;
   PasajerosPendientes = PasajerosPendientesPage;
 
+
+  UsersSQL:any;
+
+
   rootPage:any;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               private menuCtrl:MenuController, public storage: Storage,
-              private storageService: StorageServiceProvider) {
+              private storageService: StorageServiceProvider, public restServices: RestServiceProvider) {
     platform.ready().then(() => {
+
 
       this.storageService.cargar_storage();
 
@@ -61,5 +67,6 @@ export class MyApp {
     this.nav.setRoot(LoginPage);
     this.menuCtrl.close();
   }
+
 
 }

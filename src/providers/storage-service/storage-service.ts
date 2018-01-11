@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Storage } from "@ionic/storage";
 
+import { RestServiceProvider} from "../rest-service/rest-service";
+
 import { Platform } from "ionic-angular";
 
 @Injectable()
@@ -18,7 +20,10 @@ export class StorageServiceProvider {
   }
   cruce = {}
 
-  constructor(private platform: Platform) {
+  UsersSQL:any;
+  TramosSQL:any;
+
+  constructor(private platform: Platform, public restService: RestServiceProvider) {
     console.log('Hello StorageServiceProvider Provider');
   }
 
@@ -46,5 +51,23 @@ export class StorageServiceProvider {
       localStorage.setItem("usuario", JSON.stringify(this.usuario));
     }
   }
+  guardar_usuariosSQL(){
+    localStorage.setItem("UsersSQL", JSON.stringify(this.UsersSQL));
+  }
+  cargar_usuariosSQL(){
+    if(localStorage.getItem("UsersSQL")){
+      this.UsersSQL = JSON.parse(localStorage.getItem("UsersSQL"));
+    }
+  }
+
+  guardar_Tramos(){
+    localStorage.setItem("TramosSQL", JSON.stringify(this.TramosSQL));
+  }
+  cargar_Tramos(){
+    if(localStorage.getItem("TramosSQL")){
+      this.TramosSQL = JSON.parse(localStorage.getItem("TramosSQL"));
+    }
+  }
+
 
 }
