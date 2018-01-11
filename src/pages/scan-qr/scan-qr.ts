@@ -27,6 +27,7 @@ export class ScanQrPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private barcodeScanner: BarcodeScanner, public restService: RestServiceProvider,
               public loadingCtrl: LoadingController, private toastCtrl: ToastController) {
+
   }
 
   scan(){
@@ -41,55 +42,94 @@ export class ScanQrPage {
      // Guardamos la nacionalidad, para discriminar a que Pagina sera redireccionado el pasajero (Chileno = ScanCI / Extranjero = Verificacion Manual)
      let nacionalidadQR = splittedQR[11];
       console.log(this.data);
-      this.restService.postValTicket(this.data).then(dataSP =>{
 
-        if(dataSP['name'] === 'HttpErrorResponse'){
-          this.presentToast();
-          console.log("Existe error");
+      if(this.cantPasajeros == 'Sin conexión'){
+        //Tomamos la fecha del cruce y la manipulamos para quitar la hora de la variable, y así poder compararla con la fecha del codigo QR de la Tarjeta de Embarque
+        let fecha = this.navParams.data.cruce.horario_cruce.split("T");
+
+        let fechaQRsplit = splittedQR[7].split(" ");
+        let fechaQR = fechaQRsplit[0]
+        console.log(fechaQR)
+        console.log(fecha)
+        // Primero verificamos si el pasajero es Chileno o Extranjero
+        if(nacionalidadQR == "152"){
+          if(fechaQR == fecha[0] && this.tramo.cruce.id_tramo == this.data.id_tramo){
+             this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
+           }
+          else{
+            this.navCtrl.setRoot(RechazoPage, this.tramo);
+          }
         }
         else{
-          this.resultadoSQL = dataSP[0];
-          console.log(this.resultadoSQL)
-          //Tomamos la fecha del cruce y la manipulamos para quitar la hora de la variable, y así poder compararla con la fecha del codigo QR de la Tarjeta de Embarque
-          let fecha = this.navParams.data.cruce.horario_cruce.split("T");
-
-          let fechaQRsplit = splittedQR[7].split(" ");
-          let fechaQR = fechaQRsplit[0]
-          console.log(fechaQR)
-          console.log(fecha)
-          // Primero verificamos si el pasajero es Chileno o Extranjero
-          if(nacionalidadQR == "152"){
-            if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
-               this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
-             }
-            else{
-              this.navCtrl.setRoot(RechazoPage, this.tramo);
-            }
+          if(fechaQR == fecha[0] && this.tramo.cruce.id_tramo == this.data.id_tramo){
+            this.navCtrl.setRoot(VerificacionPage, {dataQR:splittedQR, tramo:this.tramo});
           }
           else{
-            if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0]){
-              this.navCtrl.setRoot(VerificacionPage, {dataQR:splittedQR, tramo:this.tramo});
-            }
-            else{
-              this.navCtrl.setRoot(RechazoPage, this.tramo);
-            }
+            this.navCtrl.setRoot(RechazoPage, this.tramo);
           }
         }
-      });
+      }
+
+      else{
+        this.restService.postValTicket(this.data).then(dataSP =>{
+
+          if(dataSP['name'] === 'HttpErrorResponse'){
+            this.presentToast();
+            console.log("Existe error");
+          }
+          else{
+            this.resultadoSQL = dataSP[0];
+            console.log(this.resultadoSQL)
+            //Tomamos la fecha del cruce y la manipulamos para quitar la hora de la variable, y así poder compararla con la fecha del codigo QR de la Tarjeta de Embarque
+            let fecha = this.navParams.data.cruce.horario_cruce.split("T");
+
+            let fechaQRsplit = splittedQR[7].split(" ");
+            let fechaQR = fechaQRsplit[0]
+            console.log(fechaQR)
+            console.log(fecha)
+            // Primero verificamos si el pasajero es Chileno o Extranjero
+            if(nacionalidadQR == "152"){
+              if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0] && this.tramo.cruce.id_tramo == this.data.id_tramo){
+                 this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
+               }
+              else{
+                this.navCtrl.setRoot(RechazoPage, this.tramo);
+              }
+            }
+            else{
+              if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0] && this.tramo.cruce.id_tramo == this.data.id_tramo){
+                this.navCtrl.setRoot(VerificacionPage, {dataQR:splittedQR, tramo:this.tramo});
+              }
+              else{
+                this.navCtrl.setRoot(RechazoPage, this.tramo);
+              }
+            }
+          }
+        });
+      }
+
     }, (err) => {
       console.log(err);
     });
   }
   ionViewWillEnter(){
     this.tramo = this.navParams.data;
+    console.log(this.tramo.cruce.id_tramo)
     // localStorage.setItem("cruce", JSON.stringify(this.tramo.cruce));
 
     console.log(this.tramo);
     let id_cruce_tramo:any = {id_cruce:this.tramo.cruce.id_cruce, id_tramo:this.tramo.cruce.id_tramo};
     this.restService.postCantPasajeros(id_cruce_tramo).then(dataSP =>{
-      let resultado = dataSP[0].pasajeros;
-      this.cantPasajeros = resultado + ' de ' + this.tramo.cruce.cupo_pasajeros_maximo;
-      console.log(this.cantPasajeros)
+      if(dataSP['name'] === 'HttpErrorResponse'){
+        console.log("No hay conexión");
+        this.cantPasajeros = "Sin conexión";
+      }
+      else{
+        let resultado = dataSP[0].pasajeros;
+        this.cantPasajeros = resultado + ' de ' + this.tramo.cruce.cupo_pasajeros_maximo;
+        console.log(this.cantPasajeros)
+      }
+
     });
   }
   presentLoading() {

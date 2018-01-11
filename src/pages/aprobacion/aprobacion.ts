@@ -33,13 +33,20 @@ export class AprobacionPage {
   siguientePasajero(){
     this.data = {id_ticket:this.dataQR[0], id_reserva:this.dataQR[1], id_cruce:this.dataQR[8], id_tramo:this.dataQR[2], val_seed:this.dataQR[10], id_usuario:this.tramo.id_usuario.id_usuario};
     this.restServices.postUtilTicket(this.data).then(dataSP =>{
-      this.resultadoSP = dataSP[0];
-      if(this.resultadoSP.resultado =! 0){
+      if(dataSP['name'] === 'HttpErrorResponse'){
+        console.log("No hay conexión");
         this.navCtrl.setRoot(ScanQrPage, this.tramo);
       }
       else{
-        this.navCtrl.setRoot(ScanQrPage, this.tramo);
+        this.resultadoSP = dataSP[0];
+        if(this.resultadoSP.resultado =! 0){
+          this.navCtrl.setRoot(ScanQrPage, this.tramo);
+        }
+        else{
+          this.navCtrl.setRoot(ScanQrPage, this.tramo);
+        }
       }
+
     })
   }
 

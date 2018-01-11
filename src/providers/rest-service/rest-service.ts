@@ -67,6 +67,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err =>{
         console.log(err);
+        resolve(err);
       });
     });
   }
@@ -76,6 +77,7 @@ export class RestServiceProvider {
         resolve(data);
       }, err =>{
         console.log(err);
+        resolve(err);
       });
     });
   }
