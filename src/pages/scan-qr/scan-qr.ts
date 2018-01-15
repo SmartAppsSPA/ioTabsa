@@ -71,6 +71,8 @@ export class ScanQrPage {
       }
 
       else{
+        //Validar que todos los datos del CODIGO QR existan y esten correctamente ingresados
+        //Validar sean 11 parametros del codigo QR
         this.restService.postValTicket(this.data).then(dataSP =>{
 
           if(dataSP['name'] === 'HttpErrorResponse'){
@@ -146,8 +148,8 @@ export class ScanQrPage {
   }
   presentToast() {
   let toast = this.toastCtrl.create({
-    message: 'ERROR: El ticket del pasajero presenta problemas en el código QR. Verifique la Tarjeta de Embarque cuidadosamente.',
-    duration: 3000,
+    message: 'ERROR DE CONEXIÓN: Verifique su conexión Wi-Fi.',
+    duration: 2500,
     position: 'bottom'
   });
 
