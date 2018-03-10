@@ -11,6 +11,7 @@
 <ion-content padding>
 
 <ion-list>
+ <h6 *ngIf="Viaje.destino == null">Seleccione el Origen del tramo.</h6>
  <ion-item *ngIf="Viaje.destino == null">
    <ion-label>ORIGEN</ion-label>
    <!-- Ante la seleccion del item, se envia al controlador el parametro del ngModel para correr el codigo -->
@@ -20,7 +21,8 @@
      <ion-option *ngFor="let origen of origenes">{{ origen.nombre_sitio }}</ion-option>
    </ion-select>
  </ion-item>
- <ion-item *ngIf="Viaje.destino == null">
+ <h6 *ngIf="Viaje.destino == null && Viaje.origen != null">Seleccione el Destino del tramo.</h6>
+ <ion-item *ngIf="Viaje.destino == null && Viaje.origen != null">
    <ion-label>DESTINO</ion-label>
    <ion-select  [(ngModel)]="Viaje.destino" name="destino"
                 submitText="Aceptar" cancelText="Cancelar"

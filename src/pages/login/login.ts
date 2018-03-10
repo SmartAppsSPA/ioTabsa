@@ -74,7 +74,7 @@ export class LoginPage {
   infoViaje(){
     let fechaActual = new Date().toLocaleDateString()
     let fechaSplitted = fechaActual.split("/");
-    let fechaNueva = fechaSplitted[2]+"-"+fechaSplitted[1]+"-"+fechaSplitted[0];
+    let fechaNueva = fechaSplitted[2]+"-"+fechaSplitted[0]+"-"+fechaSplitted[1];
     this.fechas.fecha = fechaNueva.toString();
     console.log(this.fechas);
     this.restService.postDate(this.fechas).then(data =>{
