@@ -8,7 +8,7 @@ export class RestServiceProvider {
 
   //Ip Local servidor Tabsa
   // apiURL = 'http://192.168.1.25:24500';
-   apiURL = 'http://190.151.39.34:24500';
+   apiURL = 'http://ventas.tabsa.cl:24500';
 
   constructor(public http: HttpClient) {}
 

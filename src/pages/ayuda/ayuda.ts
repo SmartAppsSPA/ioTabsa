@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, MenuController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -26,8 +26,7 @@ export class AyudaPage {
     }
   ];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-              private menuCtrl: MenuController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   saltar_ayuda(){
