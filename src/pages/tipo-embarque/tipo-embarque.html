@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Tipo de Embarque</ion-title>
+    <button ion-button icon-only menuToggle end>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-card>
+      <ion-card-content>
+        <ion-card-title>Seleccione una Opción</ion-card-title>
+        <p>Escoja el tipo de embarque que desea realizar.</p>
+        <button ion-button full color="primary" (click)="escanearPersonasQR()">
+          <ion-icon style="margin-right:8px;" name="people"></ion-icon>
+          Personas
+        </button>
+        <button ion-button full color="danger" (click)="escanearVehiculosQR()">
+          <ion-icon style="margin-right:8px;" name="car"></ion-icon>
+          Vehículos
+        </button>
+      </ion-card-content>
+    </ion-card>
+
+</ion-content>
