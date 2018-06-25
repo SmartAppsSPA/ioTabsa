@@ -11,9 +11,9 @@
 <ion-content padding>
 
 <ion-list>
- <h6 *ngIf="Viaje.destino == null">Seleccione el Origen del tramo.</h6>
+ <h4 *ngIf="Viaje.destino == null">Seleccione el Origen del tramo.</h4>
  <ion-item *ngIf="Viaje.destino == null">
-   <ion-label>ORIGEN</ion-label>
+   <ion-label style="font-size:2rem">ORIGEN</ion-label>
    <!-- Ante la seleccion del item, se envia al controlador el parametro del ngModel para correr el codigo -->
    <ion-select [(ngModel)]="Viaje.origen" name="origen"
                submitText="Aceptar" cancelText="Cancelar"
@@ -21,9 +21,9 @@
      <ion-option *ngFor="let origen of origenes">{{ origen.nombre_sitio }}</ion-option>
    </ion-select>
  </ion-item>
- <h6 *ngIf="Viaje.destino == null && Viaje.origen != null">Seleccione el Destino del tramo.</h6>
+ <h4 *ngIf="Viaje.destino == null && Viaje.origen != null">Seleccione el Destino del tramo.</h4>
  <ion-item *ngIf="Viaje.destino == null && Viaje.origen != null">
-   <ion-label>DESTINO</ion-label>
+   <ion-label style="font-size:2rem">DESTINO</ion-label>
    <ion-select  [(ngModel)]="Viaje.destino" name="destino"
                 submitText="Aceptar" cancelText="Cancelar"
                 (ionChange)="buscarCruce(Viaje.destino)">
@@ -40,7 +40,7 @@
    </ion-card-content>
  </ion-card>
  <ion-item *ngIf="Viaje.destino!= null">
-   <button style="height: 45px;transition: none;font-size: 1.5rem;"
+   <button style="height: 6rem;transition: none;font-size: 2rem;"
            ion-button full color="danger"
            (click)="limpiarBusqueda()">
     CANCELAR<ion-icon name="trash"></ion-icon>

@@ -3,7 +3,6 @@ import { NavController, NavParams, LoadingController } from 'ionic-angular';
 //Importamos Paginas a usar
 import { ViajesPage } from "../viajes/viajes";
 import { ScanQrPage } from "../scan-qr/scan-qr";
-import { TipoEmbarquePage } from "../tipo-embarque/tipo-embarque";
 
 
 @Component({
@@ -40,7 +39,7 @@ export class ResumenPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2800);
+    }, 2000);
   }
 
   LoadingConfirmacion(){
@@ -51,12 +50,12 @@ export class ResumenPage {
     loading.present();
 
     setTimeout(() => {
-    this.navCtrl.setRoot(TipoEmbarquePage, this.tramo);
-  }, 2000);
+    this.navCtrl.setRoot(ScanQrPage, this.tramo);
+  }, 1500);
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2800);
+    }, 2000);
   }
 
 }

@@ -17,9 +17,7 @@ import { ScanQrPage } from "../pages/scan-qr/scan-qr";
 import { ScanCiPage } from "../pages/scan-ci/scan-ci";
 import { RechazoPage } from "../pages/rechazo/rechazo";
 import { AprobacionPage } from "../pages/aprobacion/aprobacion";
-import { TipoEmbarquePage } from "../pages/tipo-embarque/tipo-embarque";
-import { ScanQrVehiculosPage } from "../pages/scan-qr-vehiculos/scan-qr-vehiculos";
-//Modales
+
 import { AyudaPage } from "../pages/ayuda/ayuda";
 import { PasajerosPendientesPage } from "../pages/pasajeros-pendientes/pasajeros-pendientes";
 //plugin
@@ -46,10 +44,7 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
     ScanQrPage,
     ScanCiPage,
     RechazoPage,
-    AprobacionPage,
-    TipoEmbarquePage,
-    ScanQrVehiculosPage
-
+    AprobacionPage
   ],
   imports: [
     BrowserModule,
@@ -71,9 +66,7 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
     ScanQrPage,
     ScanCiPage,
     RechazoPage,
-    AprobacionPage,
-    TipoEmbarquePage,
-    ScanQrVehiculosPage
+    AprobacionPage
   ],
   providers: [
     StatusBar,

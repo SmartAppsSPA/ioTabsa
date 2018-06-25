@@ -117,11 +117,11 @@ export class LoginPage {
 
     setTimeout(() => {
     this.navCtrl.setRoot(SeleccionPage, {id_usuario: this.usersSQL[i].id_usuario, username: this.usersSQL[i].nombre, usersecondname: this.usersSQL[i].apellido});
-  }, 1500);
+  }, 1200);
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2000);
+    }, 1400);
   }
   ionViewDidEnter(){
     this.menu.enable(false);

@@ -18,7 +18,7 @@ import { VerificacionPage } from "../verificacion/verificacion";
 export class ScanQrPage {
   tramo:any;
 
-  data = {id_ticket:'', id_reserva:'', id_cruce:'', id_tramo:'', val_seed:''};
+  data = {tipo_ticket:'', id_ticket:'', id_reserva:'', id_cruce:'', id_tramo:'', val_seed:''};
   dataQR:string;
   resultadoSQL:any ={ticket:'', resultado:''};
   public cantPasajeros:string;
@@ -35,19 +35,23 @@ export class ScanQrPage {
     this.presentLoading();
     this.dataQR = barcodeData.text;
     console.log(this.dataQR);
-    //  this.dataQR = '112233&218335&9&EJ3506599&Elzbieta&Jurkiewicz&3122017&2017-12-03 14:00:00&5891&1975-05-09&186106178';
-    // this.dataQR = '347&221045&9&18748063-9&Daniela&Ibarra&20171213&2017-12-19 14:00:00&5901&1994-02-19&1288017151&151';
-    let splittedQR = this.dataQR.split("&");
-     this.data = {id_ticket:splittedQR[0], id_reserva:splittedQR[1], id_cruce:splittedQR[8], id_tramo:splittedQR[2], val_seed:splittedQR[10]};
+     // this.dataQR = '112233&218335&9&EJ3506599&Elzbieta&Jurkiewicz&3122017&2017-12-03 14:00:00&5891&1975-05-09&186106178';
+    // this.dataQR = '1&347&221045&9&18748063-9&Daniela&Ibarra&20171213&2017-12-19 14:00:00&5901&1994-02-19&1288017151&151';
+    var splittedQR = this.dataQR.split("&");
+     this.data = {tipo_ticket:splittedQR[0], id_ticket:splittedQR[1], id_reserva:splittedQR[2], id_cruce:splittedQR[9], id_tramo:splittedQR[3], val_seed:splittedQR[11]};
+     //Si el TIPO_TICKET es igual a 1 quiere decir que es un ticket de persona, así mismo si es 2 un ticket de vehículo
+     if(splittedQR[0] == '1'){
+     console.log('HOLA');
+   }
      // Guardamos la nacionalidad, para discriminar a que Pagina sera redireccionado el pasajero (Chileno = ScanCI / Extranjero = Verificacion Manual)
-     let nacionalidadQR = splittedQR[11];
+     let nacionalidadQR = splittedQR[12];
       console.log(this.data);
 
       if(this.cantPasajeros == 'Sin conexión'){
         //Tomamos la fecha del cruce y la manipulamos para quitar la hora de la variable, y así poder compararla con la fecha del codigo QR de la Tarjeta de Embarque
         let fecha = this.navParams.data.cruce.horario_cruce.split("T");
 
-        let fechaQRsplit = splittedQR[7].split(" ");
+        let fechaQRsplit = splittedQR[8].split(" ");
         let fechaQR = fechaQRsplit[0]
         console.log(fechaQR)
         console.log(fecha)
@@ -72,7 +76,7 @@ export class ScanQrPage {
 
       else{
         //Validar que todos los datos del CODIGO QR existan y esten correctamente ingresados
-        //Validar sean 11 parametros del codigo QR
+        //Validar sean 12 parametros del codigo QR
         this.restService.postValTicket(this.data).then(dataSP =>{
 
           if(dataSP['name'] === 'HttpErrorResponse'){
@@ -85,7 +89,7 @@ export class ScanQrPage {
             //Tomamos la fecha del cruce y la manipulamos para quitar la hora de la variable, y así poder compararla con la fecha del codigo QR de la Tarjeta de Embarque
             let fecha = this.navParams.data.cruce.horario_cruce.split("T");
 
-            let fechaQRsplit = splittedQR[7].split(" ");
+            let fechaQRsplit = splittedQR[8].split(" ");
             let fechaQR = fechaQRsplit[0]
             console.log(fechaQR)
             console.log(fecha)
@@ -143,7 +147,7 @@ export class ScanQrPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 1850);
+    }, 800);
 
   }
   presentToast() {

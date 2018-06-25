@@ -97,7 +97,7 @@ export class ViajesPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 1500);
+    }, 250);
 
   }
   onSelectChange(origen:string){

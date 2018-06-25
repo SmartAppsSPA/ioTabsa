@@ -44,10 +44,10 @@ export class SeleccionPage {
 
     setTimeout(() => {
       this.navCtrl.setRoot(ViajesPage, {id_usuario:this.usuario.id_usuario});
-    }, 1200);
+    }, 1000);
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2000);
+    }, 1050);
   }
 }
