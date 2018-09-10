@@ -8,6 +8,7 @@ import { SeleccionPage } from "../pages/seleccion/seleccion";
 import { AyudaPage } from '../pages/ayuda/ayuda';
 import { PasajerosPendientesPage } from "../pages/pasajeros-pendientes/pasajeros-pendientes";
 import { ScanQrPage } from "../pages/scan-qr/scan-qr";
+import { CmbscannerProvider } from '../providers/cmbscanner/cmbscanner';
 //plugins a utilizar
 import { Storage } from "@ionic/storage";
 import { StorageServiceProvider } from "../providers/storage-service/storage-service";
@@ -32,7 +33,8 @@ export class MyApp {
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
               private menuCtrl:MenuController, public storage: Storage,
-              private storageService: StorageServiceProvider, public restServices: RestServiceProvider) {
+              private storageService: StorageServiceProvider, public restServices: RestServiceProvider,
+              public cmbscannerProvider : CmbscannerProvider) {
     platform.ready().then(() => {
 
 

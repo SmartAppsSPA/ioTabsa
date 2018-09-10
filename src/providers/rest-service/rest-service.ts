@@ -19,8 +19,8 @@ export class RestServiceProvider {
       }, err => {
         console.log(err);
         resolve(err);
+      });
     });
-  });
   }
   loginUsers(credenciales){
     return new Promise (resolve => {
@@ -61,9 +61,29 @@ export class RestServiceProvider {
       });
     });
   }
+  postValTicketVehiculo(ticketVehiculo){
+    return new Promise(resolve =>{
+      this.http.post(this.apiURL + '/valTicketVehiculo', ticketVehiculo).subscribe(data =>{
+        resolve(data);
+      }, err =>{
+        console.log(err);
+        resolve(err);
+      });
+    });
+  }
   postUtilTicket(ticketWuser){
     return new Promise(resolve =>{
       this.http.post(this.apiURL + '/utilTicket', ticketWuser).subscribe(data =>{
+        resolve(data);
+      }, err =>{
+        console.log(err);
+        resolve(err);
+      });
+    });
+  }
+  postUtilTicketVehiculo(ticketUserVehiculo){
+    return new Promise (resolve =>{
+      this.http.post(this.apiURL + 'utilTicketVehiculo', ticketUserVehiculo).subscribe(data =>{
         resolve(data);
       }, err =>{
         console.log(err);

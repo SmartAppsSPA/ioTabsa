@@ -5,6 +5,9 @@ import { ViajesPage } from '../viajes/viajes';
 //Importamos los plugins a utilizar
 import { StorageServiceProvider } from "../../providers/storage-service/storage-service";
 
+import { CmbscannerProvider, Settings } from '../../providers/cmbscanner/cmbscanner';
+
+
 @Component({
   selector: 'page-seleccion',
   templateUrl: 'seleccion.html',
@@ -12,9 +15,11 @@ import { StorageServiceProvider } from "../../providers/storage-service/storage-
 export class SeleccionPage {
 
   usuario:any;
+  scannerActive:string ="barcode";
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public loadingCtrl: LoadingController, private storageService: StorageServiceProvider) {
+              public loadingCtrl: LoadingController, private storageService: StorageServiceProvider,
+              public cmbScannerProvider : CmbscannerProvider) {
                 this.usuario = this.navParams.data;
                 this.storageService.usuario = this.navParams.data;
                 this.storageService.ajustes.mostrar_login = false;
@@ -49,5 +54,15 @@ export class SeleccionPage {
     setTimeout(() => {
       loading.dismiss();
     }, 1050);
+  }
+
+  startStopScanner(event){
+
+    if(this.scannerActive == 'barcode')
+    this.cmbScannerProvider.start();
+  else
+    this.cmbScannerProvider.stop();
+
+
   }
 }

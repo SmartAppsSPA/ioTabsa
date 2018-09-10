@@ -20,13 +20,14 @@
       <ion-list>
         <ion-item>
           <ion-icon name="person" item-start></ion-icon>
-          <ion-label style="font-size:1.9rem;">Bienvenido: <span>{{usuario.username}} {{usuario.usersecondname}}</span></ion-label>
+          <ion-label style="font-size:1.45rem;">Bienvenido: <span>{{usuario.username}} {{usuario.usersecondname}}</span></ion-label>
         </ion-item>
         <ion-item>
-          <button style="height: 6rem; transition: none;font-size: 2.2rem;" ion-button full color="Broom"
+          <button style="height: 6rem; transition: none;font-size: 2.1rem;" ion-button full color="Broom"
                   (click)="abrirViajes()">Seleccionar Viaje</button>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
+  <button ion-fab (click)="startStopScanner($event)"></button>
 </ion-content>

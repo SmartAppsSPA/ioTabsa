@@ -6,6 +6,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 // Importamos siguiente pantalla
 import { RechazoPage } from "../rechazo/rechazo";
+import { AprobacionPage } from "../aprobacion/aprobacion";
 import { ScanCiPage } from "../scan-ci/scan-ci";
 import { VerificacionPage } from "../verificacion/verificacion";
 
@@ -41,10 +42,12 @@ export class ScanQrPage {
      this.data = {tipo_ticket:splittedQR[0], id_ticket:splittedQR[1], id_reserva:splittedQR[2], id_cruce:splittedQR[9], id_tramo:splittedQR[3], val_seed:splittedQR[11]};
      //Si el TIPO_TICKET es igual a 1 quiere decir que es un ticket de persona, así mismo si es 2 un ticket de vehículo
      if(splittedQR[0] == '1'){
-     console.log('HOLA');
+   }
+   else if(splittedQR[0] == '4'){
+
    }
      // Guardamos la nacionalidad, para discriminar a que Pagina sera redireccionado el pasajero (Chileno = ScanCI / Extranjero = Verificacion Manual)
-     let nacionalidadQR = splittedQR[12];
+     var nacionalidadQR = splittedQR[12];
       console.log(this.data);
 
       if(this.cantPasajeros == 'Sin conexión'){
@@ -58,19 +61,22 @@ export class ScanQrPage {
         // Primero verificamos si el pasajero es Chileno o Extranjero
         if(nacionalidadQR == "152"){
           if(fechaQR == fecha[0] && this.tramo.cruce.id_tramo == this.data.id_tramo){
-             this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
+             this.navCtrl.setRoot(AprobacionPage, {dataQR:splittedQR, tramo:this.tramo});
            }
           else{
             this.navCtrl.setRoot(RechazoPage, this.tramo);
           }
         }
-        else{
+        if(nacionalidadQR != "152"){
           if(fechaQR == fecha[0] && this.tramo.cruce.id_tramo == this.data.id_tramo){
-            this.navCtrl.setRoot(VerificacionPage, {dataQR:splittedQR, tramo:this.tramo});
+            this.navCtrl.setRoot(AprobacionPage, {dataQR:splittedQR, tramo:this.tramo});
           }
           else{
             this.navCtrl.setRoot(RechazoPage, this.tramo);
           }
+        }
+        if(nacionalidadQR == ""){
+          this.navCtrl.setRoot(RechazoPage, this.tramo);
         }
       }
 
@@ -96,19 +102,22 @@ export class ScanQrPage {
             // Primero verificamos si el pasajero es Chileno o Extranjero
             if(nacionalidadQR == "152"){
               if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0] && this.tramo.cruce.id_tramo == this.data.id_tramo){
-                 this.navCtrl.setRoot(ScanCiPage, {dataQR:splittedQR, tramo:this.tramo});
+                 this.navCtrl.setRoot(AprobacionPage, {dataQR:splittedQR, tramo:this.tramo});
                }
               else{
                 this.navCtrl.setRoot(RechazoPage, this.tramo);
               }
             }
-            else{
+            if(nacionalidadQR != "152"){
               if(this.resultadoSQL.resultado == 8 && fechaQR == fecha[0] && this.tramo.cruce.id_tramo == this.data.id_tramo){
-                this.navCtrl.setRoot(VerificacionPage, {dataQR:splittedQR, tramo:this.tramo});
+                this.navCtrl.setRoot(AprobacionPage, {dataQR:splittedQR, tramo:this.tramo});
               }
               else{
                 this.navCtrl.setRoot(RechazoPage, this.tramo);
               }
+            }
+            if(nacionalidadQR == ''){
+              this.navCtrl.setRoot(RechazoPage, this.tramo);
             }
           }
         });

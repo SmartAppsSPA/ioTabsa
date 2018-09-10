@@ -2,8 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
 //Importamos el plugin para Escanear Codigo QR
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-//Importamos Servicio Rest para validacion de Cedula de Identidad / CI
-import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 //importamos paginas a redireccionar
 import { AprobacionPage } from "../aprobacion/aprobacion";
 import { VerificacionPage } from "../verificacion/verificacion";
@@ -25,8 +23,7 @@ export class ScanCiPage {
   fech_nac:string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
-              public restService: RestServiceProvider, private barcodeScanner: BarcodeScanner,
-              public loadingCtrl: LoadingController) {
+              private barcodeScanner: BarcodeScanner, public loadingCtrl: LoadingController) {
   }
 
   scan(){
@@ -41,6 +38,10 @@ export class ScanCiPage {
       let splittedFechNAC = this.manipulacionDataCI[3].split("=");
       let slicedFechNAC = splittedFechNAC[1].slice(10, -8)
       let transformSlicedFechaNAC = '19' + slicedFechNAC.slice(0, -4) + '-' + slicedFechNAC.slice(2,-2) + '-' + slicedFechNAC.slice(4);
+      console.log(this.fech_nac);
+      console.log(this.rut);
+      console.log(transformSlicedFechaNAC);
+      console.log(splittedRUT[1]);
 
       if(transformSlicedFechaNAC == this.fech_nac && splittedRUT[1] == this.rut){
         this.navCtrl.setRoot(AprobacionPage, {dataQR:this.dataQR, tramo:this.tramo});
@@ -58,8 +59,8 @@ export class ScanCiPage {
     this.dataQR = this.navParams.data.dataQR;
     console.log(this.tramo);
     console.log(this.dataQR);
-    this.rut = this.dataQR[3];
-    this.fech_nac = this.dataQR[9]
+    this.rut = this.dataQR[4];
+    this.fech_nac = this.dataQR[10]
   }
   presentLoading() {
     let loading = this.loadingCtrl.create({

@@ -35,7 +35,7 @@ export class AprobacionPage {
     }
   //Inovocamos al procedimiento almacenado al momento de cargar la pagina
   ionViewWillEnter(){
-    this.data = {id_ticket:this.dataQR[0], id_reserva:this.dataQR[1], id_cruce:this.dataQR[8], id_tramo:this.dataQR[2], val_seed:this.dataQR[10], id_usuario:this.tramo.id_usuario.id_usuario};
+    this.data = {id_ticket:this.dataQR[1], id_reserva:this.dataQR[2], id_cruce:this.dataQR[9], id_tramo:this.dataQR[3], val_seed:this.dataQR[11], id_usuario:this.tramo.id_usuario.id_usuario};
     this.restServices.postUtilTicket(this.data).then(dataSP=>{
       if(dataSP['name'] === 'HttpErrorResponse'){
         console.log("No hay conexión");

@@ -51,11 +51,11 @@ export class ResumenPage {
 
     setTimeout(() => {
     this.navCtrl.setRoot(ScanQrPage, this.tramo);
-  }, 1500);
+  }, 1300);
 
     setTimeout(() => {
       loading.dismiss();
-    }, 2000);
+    }, 1300);
   }
 
 }

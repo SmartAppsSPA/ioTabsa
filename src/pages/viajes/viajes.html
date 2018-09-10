@@ -39,7 +39,8 @@
      <h3>Nave: {{cruce.nombre_nave}}</h3>
    </ion-card-content>
  </ion-card>
- <ion-item *ngIf="Viaje.destino!= null">
+ <ion-item style="position: absolute; bottom:0; margin-left: -15px;"
+           *ngIf="Viaje.destino!= null">
    <button style="height: 6rem;transition: none;font-size: 2rem;"
            ion-button full color="danger"
            (click)="limpiarBusqueda()">

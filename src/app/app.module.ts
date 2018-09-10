@@ -24,6 +24,7 @@ import { PasajerosPendientesPage } from "../pages/pasajeros-pendientes/pasajeros
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { IonicStorageModule } from '@ionic/storage';
+import { CmbscannerProvider } from '../providers/cmbscanner/cmbscanner';
 
 //Servicios de la Aplicacion
 import { RestServiceProvider } from '../providers/rest-service/rest-service';
@@ -77,7 +78,8 @@ import { StorageServiceProvider } from '../providers/storage-service/storage-ser
     RestServiceProvider,
     Md5,
     IonicStorageModule,
-    StorageServiceProvider
+    StorageServiceProvider,
+    CmbscannerProvider
   ]
 })
 export class AppModule {}
