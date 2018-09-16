@@ -15,7 +15,7 @@
       <ion-card-title style="text-align: center;margin: 0 0 3rem 0;">Escanee el código QR de la Tarjeta de Embarque</ion-card-title>
       <button style="height: 6rem;transition: none;font-size: 2rem;"
               ion-button block color="Broom"
-              (click)="scan()">REALIZAR SCAN QR
+              (click)="startStopScanner($event)">REALIZAR SCAN QR
               <ion-icon name="barcode"></ion-icon>
       </button>
     </ion-card-content>
@@ -24,7 +24,5 @@
   <div class="progress-bar">
       <span [style.width]="workoutProgress">{{cantPasajeros}}</span>
   </div>
-
-
-
+  
 </ion-content>

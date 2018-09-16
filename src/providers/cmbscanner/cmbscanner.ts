@@ -10,7 +10,6 @@ interface BarcodeResult {
 	symbology : string,
 	readString : string,
 	symbologyString? : string,
-	xml? : string,
 	image? : string
 };
 
@@ -50,20 +49,20 @@ export class CmbscannerProvider {
 
   private settings : Settings = {
   	deviceType : DeviceType.DEVICE_TYPE_MOBILE_DEVICE,
-  	previewContainer : [0,15,100,50],
+  	previewContainer : [0,0,100,60],
   	enabledSymbols : [
-          "SYMBOL.DATAMATRIX"		
-          ,"SYMBOL.QR"				
-          ,"SYMBOL.C128"			
-          ,"SYMBOL.UPC-EAN"			
-          ,"SYMBOL.C11"				
-          ,"SYMBOL.C39"				
-          ,"SYMBOL.C93"				
+          "SYMBOL.DATAMATRIX"
+          ,"SYMBOL.QR"
+          ,"SYMBOL.C128"
+          ,"SYMBOL.UPC-EAN"
+          ,"SYMBOL.C11"
+          ,"SYMBOL.C39"
+          ,"SYMBOL.C93"
   	],
   	enableImage : true,
   	enableImageGraphics : true,
   	cameraMode : 0,
-  	symbols : [ 
+  	symbols : [
           "SYMBOL.DATAMATRIX"
           ,"SYMBOL.QR"
           ,"SYMBOL.C128"
@@ -93,7 +92,7 @@ export class CmbscannerProvider {
           ,"SYMBOL.C25"
           ,"SYMBOL.C39-CONVERT-TO-C32"
           ,"SYMBOL.OCR"
-          ,"SYMBOL.4STATE-RMC"  
+          ,"SYMBOL.4STATE-RMC"
   	],
   	triggerType : TriggerType.CONTINUOUS_TRIGGER
   };
@@ -106,7 +105,7 @@ export class CmbscannerProvider {
 	cmbScanner.setConnectionStateDidChangeOfReaderCallback( connectionState => {
 
 		this.events.publish('connection:changed', connectionState);
-		
+
 		if (connectionState == cmbScanner.CONSTANTS.CONNECTION_STATE_CONNECTED){
 
 			//image results should be set after we have a connection to the READER
@@ -118,8 +117,8 @@ export class CmbscannerProvider {
 		        this.allDone.push(cmbScanner.setSymbologyEnabled(v,true).then((symbResult : any) => {
 		        	// console.log(JSON.stringify(symbResult));
 		        	return symbResult;
-		        }));					
-			});				
+		        }));
+			});
 
 			Promise.all(this.allDone).then(results => {
 				//when all is said and done
@@ -151,18 +150,18 @@ export class CmbscannerProvider {
 						//set settings with the default settings
 					  	this.storage.set("settings",this.settings).then(status => {
 					  		// this.events.publish('settings:update', item,value,status);
-					  	})						
+					  	})
 					}
 					else{
 
 						this.settings = settings;
 					}
-					
-			
+
+
 
 					cmbScanner.setPreviewContainerPositionAndSize(...this.settings.previewContainer);
-					cmbScanner.setCameraMode(this.settings.cameraMode);   
-					cmbScanner.loadScanner(this.settings.deviceType,function(result){cmbScanner.connect(); });					
+					cmbScanner.setCameraMode(this.settings.cameraMode);
+					cmbScanner.loadScanner(this.settings.deviceType,function(result){cmbScanner.connect(); });
 				});
 
 				return this.storage.get('results').then( data => {
@@ -187,7 +186,7 @@ export class CmbscannerProvider {
   		readString : ""
   	};
 
-	// console.log(JSON.stringify(item));  	
+	// console.log(JSON.stringify(item));
 
   	item_candidate.symbology = item.symbology;
   	item_candidate.readString = item.readString;
@@ -212,7 +211,7 @@ export class CmbscannerProvider {
 
   	this.storage.set("settings",this.settings).then(status => {
   		this.events.publish('settings:update', "enabledSymbols",this.settings.enabledSymbols,status);
-  	})  	
+  	})
 
   }
   removeItem(id){

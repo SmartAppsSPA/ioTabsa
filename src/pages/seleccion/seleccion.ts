@@ -5,7 +5,7 @@ import { ViajesPage } from '../viajes/viajes';
 //Importamos los plugins a utilizar
 import { StorageServiceProvider } from "../../providers/storage-service/storage-service";
 
-import { CmbscannerProvider, Settings } from '../../providers/cmbscanner/cmbscanner';
+import { CmbscannerProvider } from '../../providers/cmbscanner/cmbscanner';
 
 
 @Component({

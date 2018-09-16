@@ -83,7 +83,7 @@ export class RestServiceProvider {
   }
   postUtilTicketVehiculo(ticketUserVehiculo){
     return new Promise (resolve =>{
-      this.http.post(this.apiURL + 'utilTicketVehiculo', ticketUserVehiculo).subscribe(data =>{
+      this.http.post(this.apiURL + '/utilTicketVehiculo', ticketUserVehiculo).subscribe(data =>{
         resolve(data);
       }, err =>{
         console.log(err);

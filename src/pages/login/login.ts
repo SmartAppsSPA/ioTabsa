@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, MenuController, ToastController, LoadingController } from 'ionic-angular';
 import { HttpClient } from '@angular/common/http';
-
 //Importamos Página Inicial
 import { SeleccionPage } from "../seleccion/seleccion";
 //Importamos el servicio Rest
@@ -9,6 +8,7 @@ import { RestServiceProvider } from "../../providers/rest-service/rest-service";
 import { StorageServiceProvider } from "../../providers/storage-service/storage-service";
 //importamos plugin a utilizar
 import {Md5} from 'ts-md5/dist/md5';
+
 
 
 @IonicPage()
@@ -21,7 +21,6 @@ export class LoginPage {
   credenciales = {username:'', password:''};
   usersSQL:any;
   credencialesSQL:any;
-
   cruceSQL:any; //Data recibida por el servidor SQL -> Cruces
   fechas = {fecha:''} //Objeto a Enviar al Servicio Rest para que lo consuma el metodo.
 
@@ -29,9 +28,6 @@ export class LoginPage {
               private menu: MenuController, public restService: RestServiceProvider,
               public http: HttpClient, private toastCtrl: ToastController,
               public loadingCtrl: LoadingController, private storageService: StorageServiceProvider) {
-
-
-
   }
 
   loginApp(){
@@ -126,6 +122,7 @@ export class LoginPage {
   ionViewDidEnter(){
     this.menu.enable(false);
   }
+
   ionViewWillLeave(){
     this.menu.enable(true);
   }

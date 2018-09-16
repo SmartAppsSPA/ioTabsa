@@ -17,6 +17,7 @@ export class AprobacionPage {
   resultadoSP:any;
 
   data = {id_ticket:'', id_reserva:'', id_cruce:'', id_tramo:'', val_seed:'', id_usuario:''};
+  dataVehiculo = {id_ticket:'', id_reserva:'', id_cruce:'', id_tramo:'', id_vehiculo:'', patente:'', val_seed:'', id_usuario:''};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public restServices: RestServiceProvider) {
@@ -35,7 +36,9 @@ export class AprobacionPage {
     }
   //Inovocamos al procedimiento almacenado al momento de cargar la pagina
   ionViewWillEnter(){
+  if(this.dataQR[0] == '1'){
     this.data = {id_ticket:this.dataQR[1], id_reserva:this.dataQR[2], id_cruce:this.dataQR[9], id_tramo:this.dataQR[3], val_seed:this.dataQR[11], id_usuario:this.tramo.id_usuario.id_usuario};
+
     this.restServices.postUtilTicket(this.data).then(dataSP=>{
       if(dataSP['name'] === 'HttpErrorResponse'){
         console.log("No hay conexión");
@@ -43,7 +46,17 @@ export class AprobacionPage {
 
 
 
+      }
+    });
+  }
+  else{
+    this.dataVehiculo = {id_ticket:this.dataQR[1], id_reserva:this.dataQR[2], id_cruce:this.dataQR[9], id_tramo:this.dataQR[3], id_vehiculo:this.dataQR[4], patente:this.dataQR[5], val_seed:this.dataQR[10], id_usuario:this.tramo.id_usuario.id_usuario};
+    this.restServices.postUtilTicketVehiculo(this.dataVehiculo).then(dataSP=>{
+      if(dataSP['name'] === 'HttpErrorResponse'){
+        console.log("No hay conexión");
+        //guardar datos para invocar procedimiento almacenado al iniciar sesion.
         }
-      })
+      });
     }
+  }
   }
