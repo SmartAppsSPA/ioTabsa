@@ -58,9 +58,6 @@ export class ScanQrPage {
                   this.removeBtn = (this.list_data.length > 0) ? false : true;
                   this.cmbScannerProvider.config().then(data => {
                     this.settings= this.cmbScannerProvider.getSettings();
-                    if(this.settings.triggerType == 5)
-                      this.triggerMode = "analytics";
-                    else
                       this.triggerMode = "crop";
                     this.list_data = data.list;
                     cmbScanner.setActiveStartScanningCallback(scannerState => {
@@ -77,6 +74,7 @@ export class ScanQrPage {
                     });
                     cmbScanner.setResultCallback( result => {
                         // Proceso de escaneo y validación de código QR
+                        this.presentLoading();
                         this.dataQR = result.readString;
                         console.log(this.dataQR);
                          // this.dataQR = '112233&218335&9&EJ3506599&Elzbieta&Jurkiewicz&3122017&2017-12-03 14:00:00&5891&1975-05-09&186106178';
@@ -256,7 +254,7 @@ export class ScanQrPage {
 
     setTimeout(() => {
       loading.dismiss();
-    }, 800);
+    }, 850);
 
   }
   presentToast() {
@@ -274,7 +272,12 @@ export class ScanQrPage {
   }
 
   startStopScanner(event){
-    this.changeTriggerMode();
+    this.cmbScannerProvider.cmbScanner.setTriggerType(2).then(result =>{
+      //need to update buttons based on the trigger type
+      if(result.status){
+        this.cmbScannerProvider.setSettingsItem('triggerType',result.trigger);
+      }
+    });
     if(this.scannerActive == 'barcode')
       this.cmbScannerProvider.start();
     else
@@ -311,5 +314,6 @@ export class ScanQrPage {
     }
   }
   ionViewDidEnter(){
+    this.settings.triggerType = 2;
   }
 }

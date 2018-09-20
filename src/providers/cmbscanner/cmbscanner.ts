@@ -26,7 +26,6 @@ export interface Settings {
   	previewContainer? : number[],
   	[key: string] : any
   };
-
 /*
   Generated class for the CmbscannerProvider provider.
 
@@ -42,7 +41,6 @@ export class CmbscannerProvider {
   public connected : boolean = false;
   private storageReady : boolean = false;
   public data : any[] = [];
-
   public cmbScanner : any;
 
   private allDone : Promise<{}>[] = [];
@@ -94,7 +92,7 @@ export class CmbscannerProvider {
           ,"SYMBOL.OCR"
           ,"SYMBOL.4STATE-RMC"
   	],
-  	triggerType : TriggerType.CONTINUOUS_TRIGGER
+  	triggerType : TriggerType.MANUAL_TRIGGER
   };
 
 
